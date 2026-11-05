@@ -339,14 +339,14 @@ const GIORNALE = {
   mese: "Novembre 2026",
   prossimo: "Dicembre 2026",
   referente: "la docente referente di Italiano",
-  mostraNomiCompleti: false   // true SOLO con liberatoria firmata da ogni autore
+  mostraNomiCompleti: true    // true SOLO con liberatoria firmata da ogni autore
 };
 
 const REDAZIONE = [
-  { sigla: "G.L.", nome: "Gabriele L.",  ruolo: "Redattore · attualità, città, scienza e sport", rubriche: "Il Mondo, La Città, Laboratorio, Palestra" },
-  { sigla: "C.M.", nome: "Camilla M.",   ruolo: "Redattrice · cultura, opinioni e orientamento", rubriche: "Laboratorio, Biblioteca, Agorà, Dopo il Cuoco" },
-  { sigla: "A.P.", nome: "Alessandro P.", ruolo: "Sviluppo del sito · progetto e codice", rubriche: "" },
-  { sigla: "A.C.", nome: "Antonio C.",   ruolo: "Sviluppo del sito · codice e pubblicazione", rubriche: "" }
+  { sigla: "G.L.", nome: "Gabriele Liquori",  ruolo: "Redattore · attualità, città, scienza e sport", rubriche: "Il Mondo, La Città, Laboratorio, Palestra" },
+  { sigla: "C.M.", nome: "Camilla Moccia",   ruolo: "Redattrice · cultura, opinioni e orientamento", rubriche: "Laboratorio, Biblioteca, Agorà, Dopo il Cuoco" },
+  { sigla: "A.P.", nome: "Alessandro Pappalardo", ruolo: "Sviluppo del sito · progetto e codice", rubriche: "" },
+  { sigla: "A.C.", nome: "Antonio Cardillo",   ruolo: "Sviluppo del sito · codice e pubblicazione", rubriche: "" }
 ];
 
 /* Le rubriche sono le ore di una mattina di scuola: sei ore, la ricreazione, l'uscita.
@@ -477,6 +477,32 @@ const ARTICOLI = [
   fonti: [
     ["Premio Strega – Albo d'oro (1957)", "https://premiostrega.it/PS/"],
     ["The Royal Institution – Best science book ever (2006)", "https://www.rigb.org/"]
+  ]
+},
+{
+  slug: "crisi-della-lettura", rubrica: "biblioteca", firma: "C.M.", data: "2026-11-05",
+  titolo: "Crisi della letteratura",
+  sommario: "Perché non riusciamo più a leggere? Il nostro cervello è stato allenato a scrollare, a saltare da uno stimolo all'altro. La buona notizia è che si può riallenare.",
+  corpo: `
+<p>Perché non riusciamo più a leggere? Capita sempre più spesso che le persone reputino l'attività della lettura faticosa: apri un libro e ti rendi conto solo dieci minuti dopo che stai leggendo sempre la stessa frase.</p>
+<p>E questo non riguarda solo il calo di ore che l'italiano medio spende nella lettura settimanale (in soli due anni è diminuito di quasi un'ora), ma si delinea un vero e proprio cambiamento qualitativo della lettura. Le modalità con cui ci dedichiamo a essa stanno venendo profondamente rimodellate dalla tecnologia. Difatti viene meno proprio la capacità di immergersi in un testo, di riflettere sugli argomenti trattati e collegarli a esperienze personali.</p>
+<p>E ciò non accade perché si è perso l'amore per la letteratura, ma perché il nostro cervello sta facendo solo ciò per cui è stato allenato negli ultimi anni: scrollare, saltare rapidamente da uno stimolo all'altro. I social media e gli smartphone offrono al nostro cervello gratificazioni frequenti, e il sistema della dopamina si attiva: così il cervello impara che quest'ambiente premia la velocità, l'immediatezza, la gratificazione rapida. Dunque il nostro cervello si adatta di conseguenza; e dopo tutta questa dopamina, chiedergli di concentrarsi per ore su delle pagine sembra impossibile.</p>
+<h3>Leggere senza capire</h3>
+<p>L'ecosistema digitale, inoltre, modifica proprio l'atteggiamento cognitivo e interpretativo delle persone: l'indagine OCSE sulle competenze degli adulti del 2024 rileva che il 35% degli italiani tra i 16 e i 65 anni fa fatica a comprendere testi più complessi di quelli brevi, espliciti e semplici. Questo fenomeno si chiama analfabetismo funzionale, cioè leggere senza capire effettivamente il testo.</p>
+<span class="a-margine"><b>Analfabetismo funzionale.</b> Non vuol dire non saper leggere: vuol dire riconoscere le parole senza riuscire a usare davvero ciò che il testo dice.</span>
+<p>Da ciò scaturiscono conseguenze gravissime. La perdita della capacità di una lettura profonda comporta un impoverimento cognitivo: minor capacità di pensiero critico, di sostenere ragionamenti complessi, o addirittura di costruire connessioni tra idee.</p>
+<h3>Si può tornare a leggere?</h3>
+<p>Tutto sommato, però, la vera domanda rimane un'altra: è possibile riprendere a leggere con regolarità? La neuroplasticità del nostro cervello, cioè la capacità del sistema nervoso di modificare la propria struttura e la propria funzione in risposta all'esperienza, lo rende possibile. E per far adattare il nostro cervello a un ritmo più lento, e di conseguenza riprendere a leggere, esistono delle strategie:</p>
+<ul>
+<li><b>Tenere il telefono fuori dalla vista:</b> anche la sua semplice presenza può sottrarre capacità cognitiva disponibile.</li>
+<li><b>Scegliere libri che interessano davvero,</b> senza sentirsi obbligati a leggere un classico o un titolo ritenuto più prestigioso.</li>
+<li><b>Fissare un appuntamento quotidiano:</b> anche 15 minuti ogni sera.</li>
+<li><b>Non misurare il successo dalla velocità:</b> leggere lentamente e comprendere è preferibile a sfogliare molti libri senza attenzione.</li>
+</ul>
+<blockquote>Leggere in profondità è un'abilità, e come ogni abilità deve essere allenata con costanza o si rischia di perderla.</blockquote>`,
+  fonti: [
+    ["OCSE – Survey of Adult Skills (PIAAC), risultati 2024", "https://www.oecd.org/en/about/programmes/piaac.html"],
+    ["A. F. Ward e altri, “Brain Drain”: la sola presenza dello smartphone riduce la capacità cognitiva disponibile (2017)", "https://doi.org/10.1086/691462"]
   ]
 },
 {
@@ -655,7 +681,7 @@ function disegnaFigura(cv) {
     c.strokeStyle = T.rossa; c.lineWidth = 1.4; c.setLineDash([5, 5]); c.beginPath(); c.moveTo(vx, 10); c.lineTo(vx, H - 10); c.stroke(); c.setLineDash([]);
     evidenzia(vx - 36, vy, vx + 36, vy);
     punto(vx, vy, T.rossa); scrivi("V", vx + 8, vy - 8, T.rossa);
-    scrivi("y = ax² + bx + c", Math.min(W - 170, vx + 30), 34, T.penna);
+    { c.font = `700 ${fs}px Kalam, cursive`; const w = c.measureText("y = ax² + bx + c").width; scrivi("y = ax² + bx + c", Math.max(12, Math.min(W - w - 14, vx + 30)), 34, T.penna); }
   } else if (tipo === 2) { // sinusoide
     const oy = H / 2, ox = 30; assi(ox, oy);
     const A = H * (.22 + R() * .12), per = W * (.35 + R() * .25);
@@ -742,7 +768,7 @@ function home() {
     <span class="prot">Circolare n. 1 · Oggetto: cosa non troverete mai su questo giornale</span>
     <h2>Le regole che ci siamo dati</h2>
     <ul>
-      <li>Nomi, cognomi e classi di studenti: firmiamo con le iniziali.</li>
+      <li>Nomi, cognomi e classi di studenti: compaiono solo i nomi della redazione, con il consenso di ciascuno.</li>
       <li>Foto o video di studenti senza il consenso scritto delle famiglie.</li>
       <li>Voti, verifiche, ritardi, note disciplinari, dati sulla salute.</li>
       <li>Titoli costruiti per spaventare o creare allarme.</li>
@@ -820,14 +846,14 @@ function redazione() {
   return `<div class="pagina"><div class="documento foglio righe margine-rosso">
     <span class="penna" style="font-size:1.3rem;color:var(--rossa)">Chi siamo</span>
     <h1>La redazione</h1>
-    <p>Quattro studenti di quinta del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Due scrivono gli articoli, due costruiscono e pubblicano il sito. Firmiamo con le iniziali, come prevede la nostra circolare.</p>
+    <p>Quattro studenti di quinta del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Due scrivono gli articoli, due costruiscono e pubblicano il sito. ${GIORNALE.mostraNomiCompleti ? "I nostri nomi compaiono con il consenso scritto di ciascuno, come prevede la circolare." : "Firmiamo con le iniziali, come prevede la nostra circolare."}</p>
     <div class="membri">${REDAZIONE.map((m, i) => `<div class="membro" style="--ev:var(--ev-${colori[i % 4]})"><div class="ciao">Ciao, sono</div><div class="dentro"><span class="sigla">${esc(GIORNALE.mostraNomiCompleti ? m.nome : m.sigla)}</span><span class="ruolo">${esc(m.ruolo)}</span>${m.rubriche ? `<span class="ruolo">Rubriche: ${esc(m.rubriche)}</span>` : ""}</div></div>`).join("")}</div>
     <h3 style="font-size:1.1rem;margin-top:10px">Come proporre un articolo</h3>
     <ol class="passi">
       <li>Scegli l'ora giusta (la rubrica) e scrivi un titolo e due righe di sommario.</li>
       <li>Scrivi il pezzo: da 2.000 a 5.000 battute, con l'elenco delle fonti in fondo.</li>
       <li>Rileggi con la circolare davanti: niente nomi, foto, voti o dati di compagni.</li>
-      <li>Consegnalo alla redazione o a ${esc(GIORNALE.referente)}: lo rivediamo insieme e lo firmi con le iniziali.</li>
+      <li>Consegnalo alla redazione o a ${esc(GIORNALE.referente)}: lo rivediamo insieme e lo firmi con le iniziali, oppure con nome e cognome se firmi la liberatoria.</li>
     </ol>
     <p><b>Quando esce:</b> un numero al mese durante l'anno scolastico. Numero ${GIORNALE.numero}: ${esc(GIORNALE.mese)}. Prossimo numero: ${esc(GIORNALE.prossimo)}.</p>
   </div></div>`;
