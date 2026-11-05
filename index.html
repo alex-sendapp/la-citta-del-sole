@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La Città del Sole</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="La Città del Sole, il giornale degli studenti del Liceo Scientifico Statale Cuoco–Campanella di Napoli.">
+<meta name="description" content="La Città del Sole, il giornale degli studenti del Liceo Scientifico Linguistico V. Cuoco – T. Campanella di Napoli.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..800;1,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
@@ -226,6 +226,39 @@ main{animation:entra .35s ease both}
 .piede a:hover{color:var(--blu)}
 .piede .fondo{border-top:1px solid var(--linea);padding-top:18px;font-size:.8rem;color:var(--testo-2)}
 
+.nowrap{white-space:nowrap}
+@media (min-width:700px){.nowrap-l{white-space:nowrap}}
+/* ---------- orario ---------- */
+.classi{display:grid;gap:10px;margin-bottom:24px}
+.anno{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.anno > span{width:5.2rem;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--testo-2)}
+@media (max-width:560px){.anno > span{width:100%}}
+.chip{min-height:44px;min-width:56px;padding:0 14px;border-radius:22px;border:1px solid var(--linea);background:var(--superficie);font-weight:600;font-size:.92rem;transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--blu)}
+.chip[aria-pressed="true"]{background:var(--blu);border-color:var(--blu);color:var(--su-blu)}
+.adesso-box{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:14px}
+.adesso-box h2{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.6rem,3.4vw,2.1rem)}
+.adesso-box p{color:var(--testo-2)}
+.adesso-box p b{color:var(--blu)}
+.giorni-tab{display:none;gap:6px;margin-bottom:12px;overflow-x:auto}
+.orario-box{background:var(--superficie);border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+.orario-tab{width:100%;border-collapse:collapse;table-layout:fixed}
+.orario-tab th,.orario-tab td{padding:13px 12px;border-bottom:1px solid var(--linea);text-align:left;font-size:.95rem;vertical-align:top;overflow-wrap:anywhere}
+.orario-tab tr:last-child th,.orario-tab tr:last-child td{border-bottom:0}
+.orario-tab thead th{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--testo-2);background:var(--sfondo)}
+.orario-tab tr > :first-child{width:6.5rem}
+.orario-tab tbody th{font-weight:700}
+.orario-tab tbody th small{display:block;font-weight:500;color:var(--testo-2);font-size:.8rem;font-variant-numeric:tabular-nums}
+.orario-tab td.vuota{color:var(--testo-2)}
+.orario-tab .oggi{background:var(--blu-tenue)}
+.orario-tab td.adesso{box-shadow:inset 3px 0 0 var(--blu);font-weight:700;color:var(--blu)}
+.nota-orario{margin-top:14px;font-size:.84rem;color:var(--testo-2)}
+@media (max-width:700px){
+  .giorni-tab{display:flex}
+  .orario-tab [data-g]:not(.sel){display:none}
+  .orario-tab tr > :first-child{width:7rem}
+  .orario-tab td{font-size:1.02rem}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 
@@ -238,8 +271,8 @@ main{animation:entra .35s ease both}
     <a class="giornale" href="#">La Città del Sole</a>
     <p class="sottotitolo">Il giornale degli studenti</p>
     <p class="folio"><span id="oggi"></span><span id="t-anno"></span>
-      <span class="campanella" id="campanella" title="Orario indicativo: 6 ore da 60 minuti dalle 8:00, lunedì–venerdì">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span id="campanella-txt"></span></span></p>
+      <a class="campanella" id="campanella" href="#orario" title="Apri l'orario delle classi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span id="campanella-txt"></span></a></p>
   </div>
 </header>
 
@@ -280,7 +313,7 @@ main{animation:entra .35s ease both}
    foto o dati di studenti. Si firma con le iniziali.
    ===================================================================== */
 const GIORNALE = {
-  scuola: "Liceo Scientifico Statale “Cuoco–Campanella”",
+  scuola: "Liceo Scientifico Linguistico “V. Cuoco – T. Campanella”",
   citta: "Napoli",
   anno: "I",
   annoScolastico: "2026/2027",
@@ -562,6 +595,206 @@ const CURIOSITA = [
 ];
 
 
+/* Orario delle classi (tabellone della scuola). Ogni classe: 5 righe = lun→ven, 6 ore separate da | (8:00→13:00). Vuoto = nessuna lezione. */
+const ORARIO = {
+  "1A": [
+    "Usai|Malerba|Margherita|Milo|Martignetti|Ferrara",
+    "|Malerba|Ferrara|Milo|Milo|Mascolini",
+    "|Ferrara|Ferrara|Malerba|Martignetti|Margherita",
+    "Ferrara|Malerba|Malerba|D'Onofrio|D'Onofrio|Usai",
+    "Malerba|Malerba|Ferrara|Ferrara|D'Onofrio|"
+  ],
+  "1AL": [
+    "Campese|Caracò|Pastore / Le Manissier|Lo Schiavo|Varcaccio|Mansi",
+    "Magni|Magni|Maraucci|Pastore|Mansi|",
+    "|Mansi|Mansi / Fornario|Magni|Vairo|Caracò",
+    "Maraucci|Maraucci|Varcaccio|Campese|Russo|Caracò",
+    "|Lo Schiavo|Magni|Russo|Pastore|Campese / Ginzo"
+  ],
+  "1AS": [
+    "Pinto|Martignetti|Siervo|Feola|Ghezzi|Ghezzi",
+    "|Lorello|Iorio|Del Giudice|Martignetti|Ghezzi",
+    "Del Giudice|Del Giudice|Ghezzi|Pinto|Pinto|",
+    "|Lorello|Feola|Iorio|Siervo|Ghezzi",
+    "Ghezzi|Ghezzi|Mascolini|Pinto|Pinto|Feola"
+  ],
+  "1B": [
+    "|Di Finizio|Molinari|Stefanelli|Russo|Russo",
+    "|Stefanelli|Martignetti|Sansone|Russo|Russo",
+    "Molinari|Mascolini|Russo|Russo|Salottolo|Salottolo",
+    "Stefanelli|Molinari|Di Finizio|Martignetti|Rega|Rega",
+    "Sansone|Stefanelli|Stefanelli|Salottolo|Salottolo|"
+  ],
+  "1BL": [
+    "|Mele / Fornario|Agrillo / Ginzo|Caracò|Pastore|Pastore",
+    "|Russo|Russo|Lo Schiavo|Varcaccio|Vairo",
+    "|Lo Schiavo|Caracò|Mele|Agrillo|Pastore / Mourey",
+    "Mele|Varcaccio|Russo|Caracò|Maraucci|Russo",
+    "Maraucci|Maraucci|Agrillo|Mele|Russo|Russo"
+  ],
+  "1BS": [
+    "Di Finizio|Kohler|Theunissen|Albano|Mascolini|Siervo",
+    "|Kohler|Kohler|Ghezzi|Margherita|Iorio",
+    "Di Finizio|Esposito A.|Theunissen|Ghezzi|Margherita|Albano",
+    "Kohler|Esposito A.|Iorio|Siervo|Ghezzi|",
+    "|Theunissen|Kohler|Di Finizio|Albano|Albano"
+  ],
+  "1LES": [
+    "De Maio|De Maio|Caracò|Agrillo|Maraucci|Maraucci",
+    "Marasco|D'Onofrio|Della Peruta|Albano|Albano|",
+    "D'Onofrio|D'Onofrio|Varcaccio|Caracò|Caracò|",
+    "|Albano|Albano|Maraucci|Lo Schiavo|De Maio",
+    "Agrillo|Agrillo|Lo Schiavo|Varcaccio|Della Peruta|Della Peruta"
+  ],
+  "2AL": [
+    "Salottolo|Salottolo|COE francese|COE francese / Le Manissier|Campese|Caracò",
+    "Maraucci|Lo Schiavo|Vairo|Varcaccio|Salottolo|Salottolo",
+    "|Caracò|Maraucci|Maraucci|Mele / Fornario|Mele",
+    "COE francese|Mele|Salottolo|Salottolo|Caracò|Campese",
+    "|Varcaccio|Mele|Lo Schiavo|Campese / Ginzo|"
+  ],
+  "2AS": [
+    "Martignetti|Pinto|Iorio|Siervo|Solimene|",
+    "Usai|Del Giudice|Del Giudice|Caracò|Iorio|Lorello",
+    "Pinto|Pinto|Martignetti|Solimene|Solimene|",
+    "Lorello|Mascolini|Siervo|Usai|Usai|Solimene",
+    "|Usai|Del Giudice|Caracò|Caracò|Pinto"
+  ],
+  "2B": [
+    "Malerba|Mascolini|Martignetti|Russo|Molinari|Stefanelli",
+    "Molinari|Sansone|Solimene|Solimene|Stefanelli|Stefanelli",
+    "|Malerba|Salottolo|Salottolo|Russo|Russo",
+    "|Stefanelli|Stefanelli|Molinari|Martignetti|Di Finizio",
+    "Salottolo|Salottolo|Sansone|Solimene|Di Finizio|"
+  ],
+  "2BS": [
+    "Iorio|Usai|Kohler|Molinari|Siervo|Esposito A.",
+    "|Usai|Ghezzi|Iorio|Caracò|Caracò",
+    "Mascolini|Sansone|Molinari|Kohler|Kohler|",
+    "Siervo|Usai|Esposito A.|Ghezzi|Molinari|",
+    "Kohler|Sansone|Ghezzi|Ghezzi|Usai|Caracò"
+  ],
+  "3A": [
+    "D'Onofrio|D'Onofrio|Malerba|Gaudio|Musto|Margherita",
+    "Milo|Milo|Malerba|Furiano|Mascolini|Nascitini",
+    "Aricò|Musto|Nascitini|Gaudio|Gaudio|Martignetti",
+    "Milo|Margherita|Martignetti|Nascitini|Nascitini|D'Onofrio",
+    "Gaudio|Furiano|Malerba|Aricò|Aricò|Musto"
+  ],
+  "3AL": [
+    "Rega|Sansone|Aricò|Campese / Ginzo|Magni|Magni",
+    "Varcaccio|Maraucci|Pastore|Campese|Vairo|Mansi / Fornario",
+    "Magni|Maraucci|Campese|Campese|Rega|Lo Schiavo",
+    "Magni|Aricò|Sansone|Lo Schiavo|Pastore / Mandili|Pastore",
+    "Aricò|Aricò|Varcaccio|Pastore|Mansi|Mansi"
+  ],
+  "3AS": [
+    "Milo|Taglialatela|Feola|Theunissen|Esposito A.|Cerino",
+    "Musmarra|Zambella|Mascolini|Esposito A.|Lorello|Feola",
+    "Feola|Zambella|Cerino|Cerino|Taglialatela|Milo",
+    "Zambella|Musmarra|Lorello|Theunissen|Feola|Feola",
+    "Taglialatela|Taglialatela|Cerino|Theunissen|Milo|Milo"
+  ],
+  "3B": [
+    "Molinari|Solimene|Solimene|Musto|Flacco|Furiano",
+    "Sansone|Pellegrini|Molinari|Stefanelli|Solimene|Solimene",
+    "Sansone|Furiano|Solimene|Musto|Stefanelli|Stefanelli",
+    "Molinari|Flacco|Pellegrini|Solimene|Solimene|Martignetti",
+    "Stefanelli|Mascolini|Furiano|Musto|Martignetti|Pellegrini"
+  ],
+  "3BS": [
+    "Kohler|Theunissen|Albano|Mazzarella|Zambella|Baldassarre",
+    "Albano|Albano|Esposito A.|Zambella|Theunissen|Flacco",
+    "Esposito A.|Flacco|Flacco|Zambella|Mazzarella|Mazzarella",
+    "Flacco|Kohler|Kohler|D'Amaro|Albano|Theunissen",
+    "Mascolini|Mazzarella|Mazzarella|Kohler|D'Amaro|Baldassarre"
+  ],
+  "3CS": [
+    "Del Giudice|Iorio|Zambella|Ghezzi|Margherita|D'Amaro",
+    "Iorio|Ghezzi|Flacco|Mascolini|Di Finizio|Di Finizio",
+    "Ghezzi|Ghezzi|Zambella|Del Giudice|Flacco|Flacco",
+    "Di Finizio|Di Finizio|Margherita|Esposito A.|Iorio|Iorio",
+    "Zambella|Esposito A.|Di Finizio|Flacco|Del Giudice|D'Amaro"
+  ],
+  "4A": [
+    "Gianni|Milo|Ferrara|Margherita|Furiano|Martignetti",
+    "Musto|Furiano|Furiano|Nascitini|Nascitini|D'Onofrio",
+    "Musto|Nascitini|Furiano|Furiano|Ferrara|Gianni",
+    "Margherita|Vairo|Musto|Milo|Milo|Nascitini",
+    "D'Onofrio|D'Onofrio|Gianni|Martignetti|Ferrara|Ferrara"
+  ],
+  "4AL": [
+    "Sansone|Pastore / Le Manissier|Rega|Mansi / Fornario|Mansi|Varcaccio",
+    "Aricò|Aricò|Lo Schiavo|Vairo|Campese|Campese",
+    "Varcaccio|Magni|Magni|Pastore|Pastore|Rega",
+    "Sansone|Magni|Aricò|Aricò|Campese|Mansi",
+    "Rega|Rega|Pastore|Campese / Ginzo|Magni|Lo Schiavo"
+  ],
+  "4AS": [
+    "Feola|Feola|Taglialatela|Esposito A.|Cerino|Solimene",
+    "Lorello|Musmarra|Zambella|Feola|Feola|Esposito A.",
+    "Zambella|Feola|Taglialatela|Taglialatela|Cerino|Solimene",
+    "Musmarra|Zambella|Mascolini|Lorello|Del Giudice|Del Giudice",
+    "Cerino|Cerino|Taglialatela|Del Giudice|Solimene|Solimene"
+  ],
+  "4B": [
+    "Gaudio|Pellegrini|Furiano|Usai|Stefanelli|Flacco",
+    "Furiano|Molinari|Sansone|Martignetti|Gaudio|Gaudio",
+    "Usai|Molinari|Stefanelli|Stefanelli|Pellegrini|Gaudio",
+    "Gaudio|Gaudio|Flacco|Mascolini|Furiano|Pellegrini",
+    "Molinari|Gaudio|Usai|Stefanelli|Sansone|Martignetti"
+  ],
+  "4BL": [
+    "Aricò|Aricò|Salottolo|Sansone|Agrillo / Ginzo|Agrillo",
+    "Mele|Mele / Fornario|Aricò|Salottolo|Pastore|Pastore",
+    "Maraucci|Varcaccio|Rega|Vairo|Lo Schiavo|Agrillo",
+    "Aricò|Sansone|Maraucci|Pastore / Mandili|Salottolo|Salottolo",
+    "Varcaccio|Mele|Rega|Agrillo|Lo Schiavo|Pastore"
+  ],
+  "4BS": [
+    "Mascolini|Molinari|Musto|Flacco|Albano|Zambella",
+    "Margherita|Musto|Musmarra|Flacco|Esposito A.|Zambella",
+    "Pellegrini|Pellegrini|Musto|Albano|Albano|Musmarra",
+    "Musto|Musto|Molinari|Zambella|Pellegrini|Albano",
+    "Esposito A.|Molinari|Flacco|Pellegrini|Margherita|Flacco"
+  ],
+  "5A": [
+    "Furiano|Gianni|Gianni|Ferrara|Ferrara|Musto",
+    "Ferrara|Ferrara|Margherita|D'Onofrio|D'Onofrio|Martignetti",
+    "Ferrara|Aricò|Aricò|Martignetti|Gianni|Musto",
+    "Vairo|Ferrara|Ferrara|Gianni|Gianni|Furiano",
+    "Gianni|Gianni|D'Onofrio|Margherita|Musto|Aricò"
+  ],
+  "5AL": [
+    "Mele / Fornario|Campese|Sansone|Aricò|COE francese|COE francese",
+    "Rega|Rega|Varcaccio|Magni|Aricò|Aricò",
+    "Campese|Campese|Lo Schiavo|Rega|Magni|Vairo",
+    "Varcaccio|COE francese|COE francese / Mandili|Sansone|Aricò|Lo Schiavo",
+    "Magni|Magni|Campese / Ginzo|Rega|Mele|Mele"
+  ],
+  "5AS": [
+    "Taglialatela|Del Giudice|Milo|Zambella|Mazzarella|Mazzarella",
+    "Del Giudice|Esposito M.|Lorello|Musmarra|Zambella|Mazzarella",
+    "Esposito M.|Esposito M.|Esposito A.|Musmarra|Milo|Taglialatela",
+    "Mascolini|Milo|Milo|Mazzarella|Lorello|Esposito M.",
+    "Mazzarella|Zambella|Esposito A.|Taglialatela|Taglialatela|Del Giudice"
+  ],
+  "5BS": [
+    "Theunissen|Mazzarella|Mascolini|Kohler|Kohler|Albano",
+    "Pellegrini|Margherita|Mazzarella|Mazzarella|Musmarra|Theunissen",
+    "Furiano|Theunissen|Albano|Esposito A.|Musmarra|Kohler",
+    "Esposito A.|Furiano|Furiano|Pellegrini|Mazzarella|Mazzarella",
+    "Furiano|Kohler|Albano|Albano|Pellegrini|Margherita"
+  ],
+  "5D": [
+    "Pellegrini|Gaudio|Gaudio|Furiano|Gianni|Lo Schiavo",
+    "Gianni|Gianni|Gaudio|Gaudio|Flacco|Lo Schiavo",
+    "Theunissen|Di Finizio|Gaudio|Pellegrini|Furiano|Baldassarre",
+    "Furiano|Baldassarre|Vairo|Di Finizio|Theunissen|Gianni",
+    "Theunissen|Pellegrini|Gaudio|Gaudio|Flacco|Di Finizio"
+  ]
+};
+
 /* =====================================================================
    MOTORE DEL SITO — non serve modificarlo.
    ===================================================================== */
@@ -777,6 +1010,41 @@ function redazione() {
   </div>`;
 }
 
+const GIORNI_SC = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"];
+const ORE_SC = ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00"];
+const statoOrario = { classe: null, giorno: null };
+function adessoScuola() {
+  const d = new Date(), g = d.getDay() - 1, m = d.getHours() * 60 + d.getMinutes();
+  const ora = m >= 480 && m < 840 ? Math.floor((m - 480) / 60) : -1;
+  return { g: g >= 0 && g <= 4 ? g : -1, ora };
+}
+function orarioPagina() {
+  const classi = Object.keys(ORARIO);
+  if (!statoOrario.classe) { const s = store.get("cds-classe"); statoOrario.classe = ORARIO[s] ? s : classi[0]; }
+  if (statoOrario.giorno === null) { const n = adessoScuola(); statoOrario.giorno = n.g >= 0 ? n.g : 0; }
+  const anni = [1, 2, 3, 4, 5].map(n => `<div class="anno" role="group" aria-label="Classi del ${n}° anno"><span>${n}° anno</span>${classi.filter(c => c[0] === String(n)).map(c => `<button class="chip" type="button" data-classe="${c}" aria-pressed="${c === statoOrario.classe}">${c}</button>`).join("")}</div>`).join("");
+  return `<div class="articolo">
+    <header class="cat-testa"><span class="categoria">Servizi</span><h1>Orario delle classi</h1><p>Scegli la tua classe: vedi i docenti di ogni ora, dal lunedì al venerdì.</p></header>
+    <div class="classi">${anni}</div>
+    <div id="orario-classe">${orarioClasse()}</div>
+    <p class="nota-orario">Dal tabellone orario dell'istituto. Per variazioni e sostituzioni fanno fede le comunicazioni ufficiali della scuola.</p>
+  </div>`;
+}
+function orarioClasse() {
+  const cl = statoOrario.classe, righe = ORARIO[cl].map(r => r.split("|").map(x => x.trim()));
+  const n = adessoScuola(), sel = statoOrario.giorno;
+  let stato = "Fuori dall'orario delle lezioni.";
+  if (n.g >= 0 && n.ora >= 0) { const chi = righe[n.g][n.ora]; stato = chi ? `Adesso, ${n.ora + 1}ª ora: <b>${esc(chi)}</b>` : `Adesso, ${n.ora + 1}ª ora: nessuna lezione.`; }
+  const tab = GIORNI_SC.map((g, i) => `<button class="chip" type="button" data-giorno="${i}" aria-pressed="${i === sel}">${g.slice(0, 3)}</button>`).join("");
+  const testa = GIORNI_SC.map((g, i) => `<th scope="col" data-g="${i}" class="${i === sel ? "sel" : ""} ${i === n.g ? "oggi" : ""}">${g}</th>`).join("");
+  const corpo = ORE_SC.map((o, h) => `<tr><th scope="row">${h + 1}ª ora<small>${o}</small></th>${righe.map((r, i) => {
+    const v = r[h], cls = [i === sel ? "sel" : "", i === n.g ? "oggi" : "", i === n.g && h === n.ora ? "adesso" : "", v ? "" : "vuota"].join(" ");
+    return `<td data-g="${i}" class="${cls}">${v ? esc(v) : "—"}</td>`; }).join("")}</tr>`).join("");
+  return `<div class="adesso-box"><h2>Classe ${esc(cl)}</h2><p>${stato}</p></div>
+    <div class="giorni-tab" role="group" aria-label="Giorno">${tab}</div>
+    <div class="orario-box"><table class="orario-tab" aria-label="Orario settimanale della ${esc(cl)}"><thead><tr><th scope="col">Ora</th>${testa}</tr></thead><tbody>${corpo}</tbody></table></div>`;
+}
+
 function nonTrovato() { return `<div class="pagina"><h1>Pagina non trovata</h1><p class="intro">La pagina che cerchi non esiste o è stata spostata. <a href="#" style="color:var(--blu)">Torna alla prima pagina</a>.</p></div>`; }
 
 /* ---------- router: #a-slug, #rubrica-id, #circolare, #redazione, #ricreazione ---------- */
@@ -788,6 +1056,7 @@ function render() {
   else if (h.startsWith("rubrica-")) { attivo = h.slice(8); html = categoria(attivo); }
   else if (h === "circolare") html = regole();
   else if (h === "redazione") html = redazione();
+  else if (h === "orario") { html = orarioPagina(); attivo = "orario"; }
   else html = nonTrovato();
   vista.innerHTML = (!h || h === "ricreazione") ? html : `<div class="wrap">${html}</div>`;
   document.querySelectorAll("#voci a").forEach(a => { if (a.dataset.id === attivo) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
@@ -802,6 +1071,14 @@ function render() {
 }
 
 function collega() {
+  if (!vista.dataset.orario) { vista.dataset.orario = "1"; vista.addEventListener("click", e => {
+    if (!$("#orario-classe")) return;
+    const b = e.target.closest("[data-classe]"), g = e.target.closest("[data-giorno]");
+    if (b) { statoOrario.classe = b.dataset.classe; store.set("cds-classe", b.dataset.classe); document.querySelectorAll("[data-classe]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+    else if (g) statoOrario.giorno = +g.dataset.giorno;
+    else return;
+    $("#orario-classe").innerHTML = orarioClasse();
+  }); }
   const f = $("#form-problema");
   if (f) f.addEventListener("submit", e => {
     e.preventDefault();
@@ -830,17 +1107,17 @@ function campanella() {
 
 function impianto() {
   const d = new Date();
-  $("#t-scuola").textContent = GIORNALE.scuola.replace(/[“”"]/g, "");
+  { const [tipo, nome] = GIORNALE.scuola.split(/[“"]/); $("#t-scuola").innerHTML = `<span class="nowrap-l">${esc(tipo.trim())}</span>` + (nome ? ` <span class="nowrap">${esc(nome.replace(/[”"]/g, "").trim())}</span>` : ""); }
   $("#oggi").textContent = `${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`;
   $("#t-anno").textContent = `Anno scolastico ${GIORNALE.annoScolastico} · Numero ${GIORNALE.numero}`;
-  $("#voci").innerHTML = CATEGORIE.filter(c => !c.giochi).map(c => `<li><a href="#rubrica-${c.id}" data-id="${c.id}">${esc(c.nome)}</a></li>`).join("");
+  $("#voci").innerHTML = CATEGORIE.filter(c => !c.giochi).map(c => `<li><a href="#rubrica-${c.id}" data-id="${c.id}">${esc(c.nome)}</a></li>`).join("") + `<li><a href="#orario" data-id="orario">Orario</a></li>`;
   $("#piede").innerHTML = `
     <div class="piede-testa"><span class="s">${esc(GIORNALE.scuola.replace(/[“”"]/g, ""))}</span><span class="g">La Città del Sole</span></div>
     <div class="piede-col">
       <div><h4>Il giornale</h4><p>Il giornale degli studenti, online. Anno scolastico ${esc(GIORNALE.annoScolastico)}, numero ${GIORNALE.numero} (${esc(GIORNALE.mese)}). Ogni numero è rivisto dalla docente referente e pubblicato sotto la responsabilità del Dirigente scolastico.</p></div>
       <div><h4>Categorie</h4><ul>${CATEGORIE.map(c => `<li><a href="#rubrica-${c.id}">${esc(c.nome)}</a></li>`).join("")}</ul></div>
       <div><h4>Redazione</h4><ul>${REDAZIONE.map(m => `<li>${esc(GIORNALE.mostraNomiCompleti ? m.nome : m.sigla)}</li>`).join("")}<li><a href="#redazione">Chi siamo e come scriverci</a></li></ul></div>
-      <div><h4>Collegamenti</h4><ul><li><a href="#">Prima pagina</a></li><li><a href="#circolare">Regole della redazione</a></li><li><a href="#ricreazione">Il problema del mese</a></li></ul></div>
+      <div><h4>Collegamenti</h4><ul><li><a href="#">Prima pagina</a></li><li><a href="#circolare">Regole della redazione</a></li><li><a href="#orario">Orario delle classi</a></li><li><a href="#ricreazione">Il problema del mese</a></li></ul></div>
     </div>
     <p class="fondo">${esc(GIORNALE.scuola.replace(/[“”"]/g, ""))} · ${esc(GIORNALE.citta)}</p>`;
 
