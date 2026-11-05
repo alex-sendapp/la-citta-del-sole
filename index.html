@@ -103,7 +103,7 @@ p{margin:0}
 .orario ol{list-style:none;margin:0;padding:0;display:flex;overflow-x:auto;scrollbar-width:thin}
 .orario li{flex:1 0 auto;border-right:1.5px solid var(--quadretto)}
 .orario li:last-child{border-right:0}
-.orario a{display:grid;gap:1px;padding:9px 14px 10px;text-decoration:none;white-space:nowrap;border-top:6px solid var(--ev)}
+.orario a{display:grid;gap:1px;padding:12px 16px;text-decoration:none;white-space:nowrap;border-top:6px solid var(--ev)}
 .orario a small{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--matita)}
 .orario a span{font-family:var(--f-titoli);font-weight:700;font-size:1.02rem}
 .orario a:hover,.orario a[aria-current="page"]{background:var(--ev);color:var(--su-ev)}
@@ -310,11 +310,10 @@ p{margin:0}
       <div class="riga-e"><span class="campo">Scuola</span><span class="valore" id="e-scuola"></span></div>
       <div class="riga-e"><span class="campo">Anno</span><span class="valore" id="e-anno"></span></div>
     </a>
-    <div class="bollino" aria-hidden="true" id="bollino"></div>
   </div>
 </header>
 
-<nav class="orario" aria-label="Rubriche, in ordine di orario">
+<nav class="orario" aria-label="Rubriche">
   <div class="wrap"><ol id="nav-ore"></ol></div>
 </nav>
 
@@ -343,23 +342,22 @@ const GIORNALE = {
 };
 
 const REDAZIONE = [
-  { sigla: "G.L.", nome: "Gabriele Liquori",  ruolo: "Redattore · attualità, città, scienza e sport", rubriche: "Il Mondo, La Città, Laboratorio, Palestra" },
-  { sigla: "C.M.", nome: "Camilla Moccia",   ruolo: "Redattrice · cultura, opinioni e orientamento", rubriche: "Laboratorio, Biblioteca, Agorà, Dopo il Cuoco" },
+  { sigla: "G.L.", nome: "Gabriele Liquori",  ruolo: "Redattore · attualità, città, scienza e sport", rubriche: "Attualità, Napoli, Scienza, Sport" },
+  { sigla: "C.M.", nome: "Camilla Moccia",   ruolo: "Redattrice · cultura, opinioni e orientamento", rubriche: "Scienza, Cultura, Opinioni, Orientamento" },
   { sigla: "A.P.", nome: "Alessandro Pappalardo", ruolo: "Sviluppo del sito · progetto e codice", rubriche: "" },
   { sigla: "A.C.", nome: "Antonio Cardillo",   ruolo: "Sviluppo del sito · codice e pubblicazione", rubriche: "" }
 ];
 
-/* Le rubriche sono le ore di una mattina di scuola: sei ore, la ricreazione, l'uscita.
-   colore = evidenziatore (giallo, verde, azzurro, rosa, arancio, lilla) */
+/* Le rubriche del giornale. colore = evidenziatore (giallo, verde, azzurro, rosa, arancio, lilla) */
 const ORE = [
-  { id: "mondo",       ora: "1ª ora",   nome: "Il Mondo",      tema: "Attualità",         colore: "giallo",  descr: "Le notizie fuori dal cancello, lette con calma e verificate." },
-  { id: "citta",       ora: "2ª ora",   nome: "La Città",      tema: "Napoli",            colore: "verde",   descr: "Napoli come aula: storia, quartieri, luoghi da attraversare." },
-  { id: "laboratorio", ora: "3ª ora",   nome: "Laboratorio",   tema: "Scienze",           colore: "azzurro", descr: "Siamo uno scientifico: qui si misura, si prova, si spiega." },
-  { id: "ricreazione", ora: "Intervallo", nome: "Ricreazione", tema: "Giochi",            colore: "arancio", descr: "Dieci minuti: un problema e qualche curiosità.", ricreazione: true },
-  { id: "biblioteca",  ora: "4ª ora",   nome: "Biblioteca",    tema: "Cultura",           colore: "rosa",    descr: "Libri, film, arte e musica consigliati da chi li ha finiti." },
-  { id: "agora",       ora: "5ª ora",   nome: "Agorà",         tema: "Opinioni",          colore: "lilla",   descr: "Editoriali, lettere e confronti a due voci." },
-  { id: "palestra",    ora: "6ª ora",   nome: "Palestra",      tema: "Sport",             colore: "arancio", descr: "Lo sport che si guarda e quello che si fa." },
-  { id: "dopo",        ora: "Uscita",   nome: "Dopo il Cuoco", tema: "Orientamento",      colore: "verde",   descr: "Università, ITS, lavoro: la mappa per dopo la maturità." }
+  { id: "mondo",       nome: "Attualità",    colore: "giallo",  descr: "Le notizie fuori dal cancello, lette con calma." },
+  { id: "citta",       nome: "Napoli",       colore: "verde",   descr: "Storia, quartieri e luoghi della nostra città." },
+  { id: "laboratorio", nome: "Scienza",      colore: "azzurro", descr: "Scienza e tecnologia spiegate semplici." },
+  { id: "biblioteca",  nome: "Cultura",      colore: "rosa",    descr: "Libri, film, arte e musica." },
+  { id: "agora",       nome: "Opinioni",     colore: "lilla",   descr: "Editoriali, lettere e confronti a due voci." },
+  { id: "palestra",    nome: "Sport",        colore: "arancio", descr: "Lo sport che si guarda e quello che si fa." },
+  { id: "dopo",        nome: "Orientamento", colore: "verde",   descr: "Università, ITS e lavoro dopo la maturità." },
+  { id: "ricreazione", nome: "Giochi",       colore: "arancio", descr: "Il problema del mese e qualche curiosità.", ricreazione: true }
 ];
 
 const ARTICOLI = [
@@ -371,13 +369,13 @@ const ARTICOLI = [
 <p>Ogni mattina entriamo in una scuola che porta due nomi, e quasi nessuno di noi saprebbe dire, a bruciapelo, chi fossero. Abbiamo deciso di cominciare da qui: dai nomi.</p>
 <p>Tommaso Campanella nasce a Stilo, in Calabria, nel 1568. Frate domenicano, filosofo inquieto, nel 1599 viene arrestato con l'accusa di aver organizzato una congiura contro il governo spagnolo. Passerà circa ventisette anni nelle carceri di Napoli. È lì dentro, nel 1602, che scrive <em>La Città del Sole</em>: il racconto di una città ideale, costruita su sette cerchi concentrici, con un tempio dedicato al Sole al centro.</p>
 <span class="a-margine"><b>Le mura che insegnano.</b> Nella città di Campanella le pareti dei sette gironi sono dipinte con tutte le scienze: matematica, astronomia, piante, animali, arti. I ragazzi imparano camminando, prima ancora di aprire un libro.</span>
-<p>Il dettaglio che ci ha conquistati è questo: in quella città il sapere non sta chiuso in una stanza, ma è dipinto sui muri, e chi passa lo vede. Un giornale scolastico, in fondo, prova a fare la stessa cosa. Per questo lo abbiamo costruito come una mattina di scuola: sei ore di lezione, dall'attualità allo sport, una ricreazione per giocare e l'uscita, dedicata a quello che ci aspetta dopo la maturità.</p>
+<p>Il dettaglio che ci ha conquistati è questo: in quella città il sapere non sta chiuso in una stanza, ma è dipinto sui muri, e chi passa lo vede. Un giornale scolastico, in fondo, prova a fare la stessa cosa. Per questo lo abbiamo diviso in poche rubriche semplici, dall'attualità allo sport fino all'orientamento, più una pagina di giochi.</p>
 <h3>Il giornalista che dà il nome alla scuola</h3>
 <p>Vincenzo Cuoco nasce nel 1770 a Civitacampomarano, in Molise, e partecipa alla Repubblica Napoletana del 1799. Quando la repubblica cade finisce in esilio, e nel 1801 pubblica il <em>Saggio storico sulla rivoluzione napoletana</em>. La sua tesi è ancora attuale: quella rivoluzione fallì perché fu «passiva», pensata da pochi e calata dall'alto, con idee e parole lontane dalla vita della gente.</p>
 <p>Pochi lo ricordano, ma Cuoco fu anche giornalista: a Milano diresse il <em>Giornale italiano</em>. Da lui prendiamo una regola semplice. Un giornale serve solo se parla la lingua di chi lo legge. Scriveremo per gli studenti, non per stupire i professori.</p>
 <blockquote>Le mura di Campanella e la lezione di Cuoco: un sapere che si vede, scritto con parole che tutti capiscono.</blockquote>
-<h3>Le nostre promesse</h3>
-<p>Questo giornale segue le regole della nostra prima circolare, che trovate pubblicata per intero. Non pubblicheremo nomi, classi, foto o voti di studenti. Non scriveremo per spaventare. Ogni articolo dichiara le sue fonti, e le illustrazioni che vedete sono esercizi di geometria disegnati dal codice del sito: nessun volto, nessun dato. Se troviamo un errore lo correggiamo e lo diciamo.</p>
+<h3>Come lavoriamo</h3>
+<p>Ogni articolo dichiara le sue fonti, e se troviamo un errore lo correggiamo e lo diciamo. Le illustrazioni sono esercizi di geometria disegnati dal sito: siamo pur sempre uno scientifico.</p>
 <p>Il resto lo farete voi: le proposte di articoli sono aperte a tutte le classi.</p>`,
   fonti: [
     ["T. Campanella, La Città del Sole (1602; ed. latina Francoforte 1623)", "https://it.wikisource.org/wiki/La_citt%C3%A0_del_Sole"],
@@ -511,7 +509,7 @@ const ARTICOLI = [
   sommario: "Dall'anno scolastico 2025/26 lo smartphone non si usa in classe anche alle superiori. Abbiamo chiesto a due studenti di difendere due posizioni opposte.",
   corpo: `
 <p>Con una circolare del Ministero dell'Istruzione e del Merito, dall'anno scolastico 2025/26 il divieto di usare il cellulare durante l'orario scolastico è stato esteso anche alle scuole secondarie di secondo grado, con le eccezioni previste, per esempio per gli studenti che ne hanno bisogno per motivi di salute o per un percorso personalizzato. Il regolamento di ogni istituto stabilisce i dettagli.</p>
-<p>In redazione non eravamo d'accordo, e invece di scegliere una linea abbiamo fatto parlare entrambe le parti. Le due voci restano anonime, come previsto dalla nostra circolare.</p>
+<p>In redazione non eravamo d'accordo, e invece di scegliere una linea abbiamo fatto parlare entrambe le parti. Le due voci restano anonime.</p>
 <div class="pro-contro">
 <div><span class="etichetta">Pro · voce di una studentessa</span><p>Per la prima volta l'intervallo è rumoroso. Si parla, si litiga, si gioca a carte. Prima eravamo venti persone in silenzio a scorrere video. Nessuno mi ha tolto niente: mi hanno restituito tre ore di attenzione al giorno. E il telefono, a casa, è ancora lì.</p></div>
 <div><span class="etichetta">Contro · voce di uno studente</span><p>Abbiamo diciotto anni, votiamo, alcuni guidano. Ci chiedono di essere cittadini digitali consapevoli e poi tolgono lo strumento invece di insegnarci a usarlo. Il problema non è il telefono, è che nessuno ci ha mai spiegato come non farsene dominare.</p></div>
@@ -564,7 +562,7 @@ const ARTICOLI = [
 <h3>Il tifo come linguaggio</h3>
 <p>Il calcio insegna appartenenza, ma può diventare anche il contrario: insulti, discriminazioni, rivalità che degenerano. Su un giornale scolastico ci piace ricordare che il miglior tifo è quello che si può portare anche in classe: ironia sì, odio no.</p>
 <h3>Lo sport che non va in prima pagina</h3>
-<p>Accanto alla Serie A c'è tutto lo sport che facciamo davvero: pallavolo, basket nei campetti, nuoto, scherma, danza, le partite del sabato pomeriggio. Questa rubrica vuole raccontarlo. Niente nomi di ragazzi o risultati personali, come vuole la nostra circolare: raccontiamo le squadre, i luoghi, le storie.</p>
+<p>Accanto alla Serie A c'è tutto lo sport che facciamo davvero: pallavolo, basket nei campetti, nuoto, scherma, danza, le partite del sabato pomeriggio. Questa rubrica vuole raccontarlo: le squadre, i luoghi, le storie.</p>
 <blockquote>Una città che sa festeggiare insieme può anche imparare a giocare insieme.</blockquote>
 <p>Avete un campetto, una palestra o un'associazione sportiva da segnalare? Scriveteci: il prossimo numero sarà dedicato ai luoghi dello sport nei quartieri.</p>`,
   fonti: [
@@ -707,14 +705,14 @@ const disegnaTutte = () => document.querySelectorAll("canvas.figura").forEach(di
 const figura = (seme, rub) => `<canvas class="figura" data-seme="${esc(seme)}" style="--ev:var(--ev-${rub ? rub.colore : "giallo"})" role="img" aria-label="Illustrazione: esercizio di geometria disegnato dal codice"></canvas>`;
 
 /* ---------- componenti ---------- */
-const kicker = a => { const o = rubricaDi(a.rubrica); return `<div class="kicker"><span class="ev ev-${o.colore}">${esc(o.ora)} · ${esc(o.nome)}</span>${a.tipo ? `<span class="tipo">${esc(a.tipo)}</span>` : ""}</div>`; };
+const kicker = a => { const o = rubricaDi(a.rubrica); return `<div class="kicker"><span class="ev ev-${o.colore}">${esc(o.nome)}</span>${a.tipo ? `<span class="tipo">${esc(a.tipo)}</span>` : ""}</div>`; };
 const firmaRiga = a => `<div class="firma"><span>di <b>${esc(firmaDi(a))}</b></span><span>${fmtData(a.data)}</span><span>${minuti(a)} min di lettura</span></div>`;
 const scheda = a => { const o = rubricaDi(a.rubrica); return `<a class="scheda foglio nastro" style="--ev:var(--ev-${o.colore})" href="#a-${a.slug}">${figura(a.slug, o)}${kicker(a)}<h3>${esc(a.titolo)}</h3><p class="sommario">${esc(a.sommario)}</p>${firmaRiga(a)}</a>`; };
 
 function ricreazioneHTML() {
   return `<section class="ricreazione-box" id="ricreazione" aria-label="Ricreazione">
     <div class="col">
-      <span class="gesso-tit">Ricreazione · il problema del mese</span>
+      <span class="gesso-tit">Giochi · il problema del mese</span>
       <h2>${esc(PROBLEMA.titolo)}</h2>
       <p>${esc(PROBLEMA.testo)}</p>
       <form id="form-problema" novalidate>
@@ -741,8 +739,8 @@ function home() {
     const lista = ARTICOLI.filter(a => a.rubrica === o.id && a !== lead);
     if (!lista.length) return "";
     return `<section class="ora${lista.length > 1 ? " larga" : ""}" aria-labelledby="o-${o.id}">
-      <div class="ora-testa"><h2 id="o-${o.id}"><span class="quale">${esc(o.ora)}</span><span class="ev ev-${o.colore}">${esc(o.nome)}</span></h2>
-        <p>${esc(o.tema)} · ${esc(o.descr)}</p><a class="tutti" href="#rubrica-${o.id}">Tutta la ${esc(o.ora)} →</a></div>
+      <div class="ora-testa"><h2 id="o-${o.id}"><span class="ev ev-${o.colore}">${esc(o.nome)}</span></h2>
+        <p>${esc(o.descr)}</p><a class="tutti" href="#rubrica-${o.id}">Tutti gli articoli →</a></div>
       <div class="griglia">${lista.map(scheda).join("")}</div></section>`;
   }).join("");
   return `
@@ -757,25 +755,13 @@ function home() {
     </article>
     <aside class="indice foglio nastro" aria-label="Indice del numero">
       <h2>Indice</h2>
-      <ol>${ARTICOLI.map(a => { const o = rubricaDi(a.rubrica); return `<li><a href="#a-${a.slug}"><span class="t"><small>${esc(o.ora)} · ${esc(o.nome)}</small><b>${esc(a.titolo)}</b></span><span class="pag">pag. ${pagina(a)}</span></a></li>`; }).join("")}
-        <li><a href="#ricreazione"><span class="t"><small>Ricreazione</small><b>${esc(PROBLEMA.titolo)}</b></span><span class="pag">pag. ${ARTICOLI.length + 2}</span></a></li></ol>
+      <ol>${ARTICOLI.map(a => { const o = rubricaDi(a.rubrica); return `<li><a href="#a-${a.slug}"><span class="t"><small>${esc(o.nome)}</small><b>${esc(a.titolo)}</b></span><span class="pag">pag. ${pagina(a)}</span></a></li>`; }).join("")}
+        <li><a href="#ricreazione"><span class="t"><small>Giochi</small><b>${esc(PROBLEMA.titolo)}</b></span><span class="pag">pag. ${ARTICOLI.length + 2}</span></a></li></ol>
       <p class="nota">tempo di lettura totale: ${ARTICOLI.reduce((s, a) => s + minuti(a), 0)} minuti, meno di un'ora di lezione</p>
     </aside>
   </section>
   <div class="ore">${ore}</div>
-  ${ricreazioneHTML()}
-  <section class="avviso foglio righe margine-rosso nastro" aria-label="Circolare della redazione">
-    <span class="prot">Circolare n. 1 · Oggetto: cosa non troverete mai su questo giornale</span>
-    <h2>Le regole che ci siamo dati</h2>
-    <ul>
-      <li>Nomi, cognomi e classi di studenti: compaiono solo i nomi della redazione, con il consenso di ciascuno.</li>
-      <li>Foto o video di studenti senza il consenso scritto delle famiglie.</li>
-      <li>Voti, verifiche, ritardi, note disciplinari, dati sulla salute.</li>
-      <li>Titoli costruiti per spaventare o creare allarme.</li>
-      <li>Notizie senza fonti: le trovate accanto a ogni articolo.</li>
-    </ul>
-    <a class="btn vuoto" href="#circolare" style="justify-self:start">Leggi la circolare completa</a>
-  </section>`;
+  ${ricreazioneHTML()}`;
 }
 
 function rubrica(id) {
@@ -783,9 +769,9 @@ function rubrica(id) {
   if (o.ricreazione) return `<div class="pagina">${ricreazioneHTML()}</div>`;
   const lista = ARTICOLI.filter(a => a.rubrica === id);
   return `<section class="ora" style="padding-top:40px">
-    <div class="ora-testa"><h2 style="font-size:clamp(2.2rem,5vw,3.2rem)"><span class="quale">${esc(o.ora)}</span><span class="ev ev-${o.colore}">${esc(o.nome)}</span></h2><p>${esc(o.tema)} · ${esc(o.descr)}</p></div>
+    <div class="ora-testa"><h2 style="font-size:clamp(2.2rem,5vw,3.2rem)"><span class="ev ev-${o.colore}">${esc(o.nome)}</span></h2><p>${esc(o.descr)}</p></div>
     ${lista.length ? `<div class="griglia">${lista.map(scheda).join("")}</div>` :
-      `<p class="penna" style="font-size:1.3rem">Quest'ora è ancora libera. Il primo articolo potrebbe essere il tuo: <a href="#redazione">ecco come proporlo</a>.</p>`}
+      `<p class="penna" style="font-size:1.3rem">Questa rubrica è ancora vuota. Il primo articolo potrebbe essere il tuo: <a href="#redazione">ecco come proporlo</a>.</p>`}
   </section>`;
 }
 
@@ -796,17 +782,16 @@ function articolo(slug) {
   return `<div class="articolo">
     <article class="compito foglio righe margine-rosso">
       <header class="testa">${kicker(a)}<h1>${esc(a.titolo)}</h1><p class="sommario">${esc(a.sommario)}</p>${firmaRiga(a)}
-        <figure style="margin:0">${figura(a.slug, o)}<figcaption class="didascalia">Illustrazione disegnata dal codice del sito: un esercizio di geometria, nessuna foto di persone.</figcaption></figure>
+        ${figura(a.slug, o)}
       </header>
       <div class="corpo">${a.corpo}</div>
       <div class="altri"><span class="penna" style="font-size:1.3rem">Leggi anche…</span><div class="griglia">${altri.map(scheda).join("")}</div></div>
     </article>
     <aside class="lato" aria-label="Informazioni sull'articolo">
-      <div class="timbro"><b>VISTO</b><span>Controllato dalla redazione</span><span>✓ nessun dato personale · ✓ nessuna foto di minori · ✓ fonti citate · ✓ niente allarmismi</span></div>
       <div class="postit"><h2>Fonti</h2><ol>${a.fonti.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ol></div>
       <div class="strumenti">
         <button class="btn vuoto" id="copia-link" type="button">Copia il link</button>
-        <a class="btn vuoto" href="#rubrica-${o.id}">${esc(o.ora)} · ${esc(o.nome)}</a>
+        <a class="btn vuoto" href="#rubrica-${o.id}">Altri articoli di ${esc(o.nome)}</a>
       </div>
       <p id="copia-esito" style="font-size:.82rem;color:var(--matita)" aria-live="polite"></p>
     </aside>
@@ -830,7 +815,7 @@ function circolare() {
     <div class="prot"><span>Circolare n. 1</span><span>${esc(GIORNALE.citta)}, ${esc(GIORNALE.mese.toLowerCase())}</span></div>
     <p>Agli studenti, ai docenti, alle famiglie</p>
     <p class="oggetto"><b>Oggetto:</b>regole per scrivere e pubblicare sul giornale della scuola.</p>
-    <h1>Circolare della redazione</h1>
+    <h1>Regole della redazione</h1>
     <p>Queste regole vengono dalle indicazioni della nostra docente sulle pubblicazioni online delle scuole. Servono a proteggere la privacy dei minori, prevenire il cyberbullismo e mantenere un ambiente sereno.</p>
     <div>${regole.map(([t, d], i) => `<div class="punto"><span class="n">${i + 1}.</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("")}</div>
     <h3 style="font-size:1.1rem">Cosa possiamo pubblicare</h3>
@@ -846,13 +831,13 @@ function redazione() {
   return `<div class="pagina"><div class="documento foglio righe margine-rosso">
     <span class="penna" style="font-size:1.3rem;color:var(--rossa)">Chi siamo</span>
     <h1>La redazione</h1>
-    <p>Quattro studenti di quinta del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Due scrivono gli articoli, due costruiscono e pubblicano il sito. ${GIORNALE.mostraNomiCompleti ? "I nostri nomi compaiono con il consenso scritto di ciascuno, come prevede la circolare." : "Firmiamo con le iniziali, come prevede la nostra circolare."}</p>
+    <p>Quattro studenti di quinta del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Due scrivono gli articoli, due costruiscono e pubblicano il sito.</p>
     <div class="membri">${REDAZIONE.map((m, i) => `<div class="membro" style="--ev:var(--ev-${colori[i % 4]})"><div class="ciao">Ciao, sono</div><div class="dentro"><span class="sigla">${esc(GIORNALE.mostraNomiCompleti ? m.nome : m.sigla)}</span><span class="ruolo">${esc(m.ruolo)}</span>${m.rubriche ? `<span class="ruolo">Rubriche: ${esc(m.rubriche)}</span>` : ""}</div></div>`).join("")}</div>
     <h3 style="font-size:1.1rem;margin-top:10px">Come proporre un articolo</h3>
     <ol class="passi">
-      <li>Scegli l'ora giusta (la rubrica) e scrivi un titolo e due righe di sommario.</li>
+      <li>Scegli la rubrica e scrivi un titolo e due righe di sommario.</li>
       <li>Scrivi il pezzo: da 2.000 a 5.000 battute, con l'elenco delle fonti in fondo.</li>
-      <li>Rileggi con la circolare davanti: niente nomi, foto, voti o dati di compagni.</li>
+      <li>Rileggilo con le <a href="#circolare">regole della redazione</a> sotto mano.</li>
       <li>Consegnalo alla redazione o a ${esc(GIORNALE.referente)}: lo rivediamo insieme e lo firmi con le iniziali, oppure con nome e cognome se firmi la liberatoria.</li>
     </ol>
     <p><b>Quando esce:</b> un numero al mese durante l'anno scolastico. Numero ${GIORNALE.numero}: ${esc(GIORNALE.mese)}. Prossimo numero: ${esc(GIORNALE.prossimo)}.</p>
@@ -916,13 +901,11 @@ function impianto() {
   $("#oggi").textContent = `${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`;
   $("#e-scuola").textContent = `${GIORNALE.scuola} · ${GIORNALE.citta}`;
   $("#e-anno").textContent = `a.s. ${GIORNALE.annoScolastico} · numero ${GIORNALE.numero} · ${GIORNALE.mese}`;
-  $("#bollino").innerHTML = `<span>numero</span><b>${GIORNALE.numero}</b><small>${esc(GIORNALE.mese.split(" ")[0].toLowerCase())}</small>`;
-  $("#nav-ore").innerHTML = ORE.map(o => `<li><a href="#${o.ricreazione ? "rubrica-" + o.id : "rubrica-" + o.id}" data-id="${o.id}" class="${o.ricreazione ? "ricreazione" : ""}" style="--ev:var(--ev-${o.colore})"><small>${esc(o.ora)}</small><span>${esc(o.nome)}</span></a></li>`).join("");
+  $("#nav-ore").innerHTML = ORE.map(o => `<li><a href="#${o.ricreazione ? "rubrica-" + o.id : "rubrica-" + o.id}" data-id="${o.id}" style="--ev:var(--ev-${o.colore})"><span>${esc(o.nome)}</span></a></li>`).join("");
   $("#retro").innerHTML = `
     <div><h4>La Città del Sole</h4><p>Giornale scolastico online del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Anno scolastico ${esc(GIORNALE.annoScolastico)}, numero ${GIORNALE.numero}. Ogni numero è rivisto dalla docente referente e pubblicato sotto la responsabilità del Dirigente scolastico.</p></div>
-    <div><h4>L'orario</h4><ul>${ORE.map(o => `<li><a href="#rubrica-${o.id}">${esc(o.ora)} · ${esc(o.nome)}</a></li>`).join("")}</ul></div>
-    <div><h4>La redazione</h4><ul><li><a href="#redazione">Chi siamo e come scriverci</a></li><li><a href="#circolare">Circolare n. 1: regole e privacy</a></li></ul>
-      <p style="margin-top:10px">Nessuna foto di studenti: le illustrazioni sono esercizi di geometria disegnati dal codice, diversi per ogni articolo.</p></div>
+    <div><h4>Rubriche</h4><ul>${ORE.map(o => `<li><a href="#rubrica-${o.id}">${esc(o.nome)}</a></li>`).join("")}</ul></div>
+    <div><h4>La redazione</h4><ul><li><a href="#redazione">Chi siamo e come scriverci</a></li><li><a href="#circolare">Regole della redazione</a></li></ul></div>
     <div><h4>Retro di copertina</h4><div class="formulario"><span>sen 30°</span><span>= 1/2</span><span>cos 60°</span><span>= 1/2</span><span>sen 45°</span><span>= √2/2</span><span>sen²x + cos²x</span><span>= 1</span><span>π</span><span>≈ 3,14159</span></div></div>`;
 
   const root = document.documentElement;
