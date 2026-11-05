@@ -1,0 +1,879 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Città del Sole</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="La Città del Sole, giornale degli studenti del Liceo Scientifico Cuoco–Campanella di Napoli.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Schibsted+Grotesk:wght@400..800&display=swap">
+<style>
+/*
+  CONCEPT — "La pianta della città".
+  Nella Città del Sole di Campanella i sette gironi concentrici hanno le mura dipinte con tutte le scienze:
+  si impara camminando. Il giornale è una città: sette cerchi = sette rubriche, il Sole al centro = il numero in uscita.
+  Ornamento solo generativo (maioliche napoletane disegnate dal codice): zero foto di studenti, per scelta di privacy.
+  Inchiostro blu oltremare al posto del nero; il giallo-sole è l'unico gesto forte.
+*/
+:root{
+  --carta:#F5F6F1; --carta-2:#ECEEE6; --inchiostro:#15213D; --inchiostro-2:#4B5672; --filo:#D5D9CD;
+  --sole:#EFB320; --su-sole:#15213D; --maiolica:#1E7558; --cielo:#2A5BA8;
+  --anello:#E4E8DD; --anello-2:#D9E1E8;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-testo:"Literata",Georgia,"Times New Roman",serif;
+  --f-ui:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --scala:1;
+  --misura:66ch;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --carta:#0E1628; --carta-2:#141E35; --inchiostro:#E8EBF2; --inchiostro-2:#A6AFC3; --filo:#273350;
+  --sole:#F4C14B; --su-sole:#15213D; --maiolica:#4DB389; --cielo:#83A9EA;
+  --anello:#17213A; --anello-2:#1C2946; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --carta:#0E1628; --carta-2:#141E35; --inchiostro:#E8EBF2; --inchiostro-2:#A6AFC3; --filo:#273350;
+  --sole:#F4C14B; --su-sole:#15213D; --maiolica:#4DB389; --cielo:#83A9EA;
+  --anello:#17213A; --anello-2:#1C2946; color-scheme:dark }
+:root[data-size="grande"]{--scala:1.12}
+:root[data-size="enorme"]{--scala:1.25}
+
+*{box-sizing:border-box}
+html{font-size:calc(100% * var(--scala))}
+body{background:var(--carta);color:var(--inchiostro);font-family:var(--f-testo);font-size:1.0625rem;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--carta)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cielo);outline-offset:3px;border-radius:2px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ui{font-family:var(--f-ui)}
+.etichetta{font-family:var(--f-ui);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+
+/* ---------- barra di servizio ---------- */
+.servizio{border-bottom:1px solid var(--filo)}
+.servizio .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-block:10px;font-family:var(--f-ui);font-size:.82rem;color:var(--inchiostro-2)}
+.servizio .data{font-variant-numeric:tabular-nums}
+.campanella{display:flex;align-items:center;gap:8px;color:var(--inchiostro)}
+.campanella svg{width:16px;height:16px;transform-origin:50% 10%}
+.campanella.suona svg{animation:dondola .6s ease-in-out infinite alternate}
+@keyframes dondola{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.servizio .azioni{margin-left:auto;display:flex;gap:4px}
+.btn-ico{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;min-width:32px;padding:0 10px;border-radius:16px;font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--inchiostro)}
+.btn-ico:hover{background:var(--carta-2)}
+.btn-ico svg{width:16px;height:16px}
+
+/* ---------- testata ---------- */
+.testata{padding-block:28px 18px}
+.testata .wrap{display:grid;grid-template-columns:1fr auto;align-items:end;gap:16px 32px}
+.testata a{text-decoration:none}
+.nome{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(2.6rem,9vw,6.4rem);line-height:.88;letter-spacing:-.025em;font-variation-settings:"opsz" 96}
+.nome b{font-style:normal;font-weight:800}
+.sottotesta{margin-top:12px;font-family:var(--f-ui);font-size:.9rem;color:var(--inchiostro-2);max-width:46ch}
+.numero-box{text-align:right;font-family:var(--f-ui);font-size:.8rem;line-height:1.35;color:var(--inchiostro-2)}
+.numero-box strong{display:block;white-space:nowrap;font-family:var(--f-display);font-size:2.4rem;line-height:1;color:var(--inchiostro);font-weight:700;font-variant-numeric:lining-nums}
+@media (max-width:640px){.testata .wrap{grid-template-columns:1fr}.numero-box{text-align:left;display:flex;gap:10px;align-items:baseline}.numero-box strong{font-size:1.6rem}}
+
+/* ---------- navigazione: i sette cerchi ---------- */
+.cerchi{border-block:1px solid var(--inchiostro)}
+.cerchi ol{list-style:none;margin:0;padding:0;display:flex;overflow-x:auto;scrollbar-width:none}
+.cerchi ol::-webkit-scrollbar{display:none}
+.cerchi li{flex:1 0 auto}
+.cerchi a{display:flex;align-items:baseline;gap:7px;padding:12px 14px;text-decoration:none;font-family:var(--f-ui);font-size:.88rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--filo)}
+.cerchi li:last-child a{border-right:0}
+.cerchi a span{font-family:var(--f-display);font-weight:700;color:var(--inchiostro-2);font-size:.95rem}
+.cerchi a:hover,.cerchi a[aria-current="page"]{background:var(--sole);color:var(--su-sole)}
+.cerchi a:hover span,.cerchi a[aria-current="page"] span{color:var(--su-sole)}
+
+/* ---------- home: apertura ---------- */
+.apertura{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;padding-block:36px 44px;border-bottom:1px solid var(--filo)}
+@media (max-width:900px){.apertura{grid-template-columns:1fr}}
+.lead{display:grid;gap:16px;align-content:start}
+.lead .tavola{aspect-ratio:16/9}
+.lead h2{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.02;letter-spacing:-.015em}
+.lead h2 a{text-decoration:none}
+.lead h2 a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.lead .sommario{font-size:1.2rem;line-height:1.5;color:var(--inchiostro-2);max-width:56ch}
+.occhiello{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;color:var(--maiolica)}
+.occhiello .num{color:var(--inchiostro-2)}
+.firma{font-family:var(--f-ui);font-size:.82rem;color:var(--inchiostro-2);display:flex;flex-wrap:wrap;gap:4px 14px}
+.firma b{color:var(--inchiostro);font-weight:600}
+
+.pianta{display:grid;gap:14px;align-content:start}
+.pianta svg{width:100%;max-width:440px;height:auto;margin-inline:auto;display:block}
+.pianta .anello{fill:none;stroke-width:21;cursor:pointer;transition:stroke .15s}
+.pianta .anello.a1{stroke:var(--anello)} .pianta .anello.a2{stroke:var(--anello-2)}
+.pianta g.cerchio text{font-family:var(--f-ui);font-size:9.5px;font-weight:700;letter-spacing:.14em;fill:var(--inchiostro);pointer-events:none;text-transform:uppercase}
+.pianta g.cerchio:hover .anello,.pianta g.cerchio:focus .anello{stroke:var(--sole)}
+.pianta g.cerchio:hover text,.pianta g.cerchio:focus text{fill:var(--su-sole)}
+.pianta g.cerchio{outline:none}
+.pianta .raggio{stroke:var(--sole);stroke-width:2.2;stroke-linecap:round}
+.pianta .disco{fill:var(--sole)}
+.pianta .disco-txt{font-family:var(--f-display);font-weight:800;fill:var(--su-sole);font-size:22px}
+.pianta .disco-sub{font-family:var(--f-ui);font-weight:700;fill:var(--su-sole);font-size:6.5px;letter-spacing:.18em}
+.pianta figcaption{font-family:var(--f-ui);font-size:.82rem;color:var(--inchiostro-2);text-align:center;max-width:40ch;margin-inline:auto}
+.pianta figure{margin:0;display:grid;gap:12px}
+
+/* ---------- tavole maiolica (generative) ---------- */
+.tavola{display:block;width:100%;max-width:100%;background:var(--carta-2);border-radius:2px}
+
+/* ---------- fasce dei cerchi ---------- */
+.fascia{padding-block:40px;border-bottom:1px solid var(--filo);min-width:0}
+.fasce{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));column-gap:48px}
+.fascia.larga{grid-column:1/-1}
+.fascia-testa{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:6px 18px;margin-bottom:24px}
+.fascia-testa .romano{font-family:var(--f-display);font-weight:800;font-size:3.6rem;line-height:.8;color:var(--sole);-webkit-text-stroke:0}
+.fascia-testa h2{font-family:var(--f-display);font-weight:600;font-size:1.9rem;line-height:1}
+.fascia-testa p{font-family:var(--f-ui);font-size:.88rem;color:var(--inchiostro-2);margin-top:6px}
+.fascia-testa a.tutti{font-family:var(--f-ui);font-size:.82rem;font-weight:600;white-space:nowrap}
+@media (max-width:560px){.fascia-testa{grid-template-columns:auto 1fr}.fascia-testa a.tutti{grid-column:1/-1}}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:32px 28px}
+.scheda{display:grid;gap:10px;align-content:start;text-decoration:none}
+.scheda .tavola{aspect-ratio:3/2}
+.scheda h3{font-family:var(--f-display);font-weight:600;font-size:1.45rem;line-height:1.1}
+.scheda:hover h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+.scheda p.sommario{font-size:.98rem;color:var(--inchiostro-2);line-height:1.5}
+
+/* ---------- moduli in home ---------- */
+.moduli{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;padding-block:44px}
+@media (max-width:860px){.moduli{grid-template-columns:1fr}}
+.problema{background:var(--inchiostro);color:var(--carta);padding:28px;display:grid;gap:14px;align-content:start;border-radius:2px}
+.problema .etichetta{color:var(--sole)}
+.problema h2{font-family:var(--f-display);font-weight:600;font-size:1.7rem;line-height:1.1}
+.problema p{color:var(--carta);opacity:.9}
+.problema form{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.problema label{font-family:var(--f-ui);font-size:.85rem}
+.problema input{width:7.5em;font:600 1.05rem var(--f-ui);padding:9px 12px;border-radius:2px;border:2px solid var(--carta);background:transparent;color:var(--carta)}
+.btn{font-family:var(--f-ui);font-weight:700;font-size:.88rem;padding:10px 16px;border-radius:2px;background:var(--sole);color:var(--su-sole)}
+.btn.vuoto{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.problema .esito{font-family:var(--f-ui);font-size:.92rem;min-height:1.4em}
+.problema details{font-size:.95rem}
+.problema summary{font-family:var(--f-ui);font-weight:600;cursor:pointer}
+.problema details p{margin-top:8px}
+.carta-box{border:1.5px solid var(--inchiostro);padding:26px;display:grid;gap:14px;align-content:start}
+.carta-box h2{font-family:var(--f-display);font-weight:600;font-size:1.7rem;line-height:1.1}
+.carta-box ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-family:var(--f-ui);font-size:.92rem}
+.carta-box li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.carta-box li::before{content:"";width:10px;height:10px;margin-top:6px;background:var(--maiolica);transform:rotate(45deg)}
+
+/* ---------- articolo ---------- */
+.progresso{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:4px;background:var(--sole);width:0;z-index:20;transition:width .08s linear}
+.articolo{padding-block:36px 56px}
+.art-testa{max-width:860px;display:grid;gap:16px}
+.art-testa h1{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,5.6vw,4.2rem);line-height:1;letter-spacing:-.02em}
+.art-testa .sommario{font-size:1.25rem;line-height:1.5;color:var(--inchiostro-2);max-width:60ch}
+.art-tavola{margin-block:28px 8px}
+.art-tavola .tavola{aspect-ratio:21/8}
+.art-tavola figcaption{font-family:var(--f-ui);font-size:.75rem;color:var(--inchiostro-2);margin-top:8px}
+.art-corpo-wrap{display:grid;grid-template-columns:minmax(0,var(--misura)) minmax(0,1fr);gap:56px;margin-top:28px}
+@media (max-width:1000px){.art-corpo-wrap{grid-template-columns:minmax(0,1fr)}}
+.corpo{font-size:1.14rem;line-height:1.72;display:grid;gap:1.05em;max-width:var(--misura)}
+.corpo h3{font-family:var(--f-ui);font-size:1rem;font-weight:800;letter-spacing:.02em;margin-top:.8em}
+.corpo blockquote{margin:.4em 0;padding:0 0 0 22px;border-left:4px solid var(--sole);font-family:var(--f-display);font-style:italic;font-size:1.45rem;line-height:1.3}
+.corpo ul,.corpo ol{margin:0;padding-left:1.3em;display:grid;gap:.4em}
+.corpo .a-margine{font-family:var(--f-ui);font-size:.86rem;line-height:1.5;color:var(--inchiostro-2);border-top:2px solid var(--maiolica);padding-top:10px}
+.corpo .a-margine b{color:var(--inchiostro)}
+@media (min-width:700px){.corpo .a-margine{margin-left:2.2rem;max-width:44ch}}
+.corpo .pro-contro{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.corpo .pro-contro{grid-template-columns:1fr}}
+.corpo .pro-contro > div{background:var(--carta-2);padding:18px;display:grid;gap:8px;align-content:start;font-size:1rem;line-height:1.55}
+.corpo .pro-contro .etichetta{color:var(--maiolica)}
+.colonna-lat{display:grid;gap:22px;align-content:start}
+@media (min-width:1001px){.colonna-lat{position:sticky;top:24px}}
+.garanzie{border:1.5px solid var(--inchiostro);padding:18px;display:grid;gap:10px;font-family:var(--f-ui);font-size:.86rem}
+.garanzie ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.garanzie li::before{content:"✓ ";color:var(--maiolica);font-weight:800}
+.fonti{display:grid;gap:10px;font-family:var(--f-ui);font-size:.86rem}
+.fonti ol{margin:0;padding-left:1.2em;display:grid;gap:6px;color:var(--inchiostro-2)}
+.fonti a{color:var(--cielo)}
+.strumenti{display:flex;flex-wrap:wrap;gap:8px}
+.art-piede{max-width:var(--misura);margin-top:44px;padding-top:22px;border-top:1px solid var(--inchiostro);display:grid;gap:18px}
+.altri{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:22px}
+.altri .scheda h3{font-size:1.2rem}
+
+/* ---------- pagine istituzionali ---------- */
+.pagina{padding-block:40px 60px;max-width:820px}
+.pagina h1{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;margin-bottom:12px}
+.pagina .intro{font-size:1.2rem;color:var(--inchiostro-2);max-width:60ch}
+.pagina section{margin-top:34px;display:grid;gap:12px}
+.pagina h2{font-family:var(--f-ui);font-size:1.05rem;font-weight:800}
+.pagina ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.regola{display:grid;grid-template-columns:3rem 1fr;gap:14px;padding-block:14px;border-top:1px solid var(--filo)}
+.regola .n{font-family:var(--f-display);font-weight:800;font-size:1.8rem;line-height:1;color:var(--sole)}
+.regola h3{font-family:var(--f-ui);font-size:1rem;font-weight:800;margin-bottom:4px}
+.membri{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px}
+.membro{border-top:4px solid var(--inchiostro);padding-top:12px;display:grid;gap:4px}
+.membro .sigla{font-family:var(--f-display);font-weight:800;font-size:2.4rem;line-height:1}
+.membro .ruolo{font-family:var(--f-ui);font-size:.86rem;color:var(--inchiostro-2)}
+.passi{counter-reset:p;list-style:none;padding:0 !important}
+.passi li{counter-increment:p;display:grid;grid-template-columns:2rem 1fr;gap:10px}
+.passi li::before{content:counter(p);font-family:var(--f-display);font-weight:800;font-size:1.3rem;color:var(--maiolica)}
+
+/* ---------- ricerca ---------- */
+.ricerca{border-bottom:1px solid var(--filo);background:var(--carta-2)}
+.ricerca .wrap{padding-block:16px;display:grid;gap:12px}
+.ricerca input{width:100%;font:500 1.15rem var(--f-ui);padding:12px 14px;border:1.5px solid var(--inchiostro);background:var(--carta);color:var(--inchiostro);border-radius:2px}
+.ricerca ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.ricerca li a{display:block;padding:8px 4px;text-decoration:none;font-family:var(--f-display);font-size:1.15rem;font-weight:600}
+.ricerca li a small{font-family:var(--f-ui);font-size:.75rem;color:var(--maiolica);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-right:8px}
+.ricerca li a:hover{background:var(--sole);color:var(--su-sole)}
+
+/* ---------- colophon ---------- */
+.colophon{border-top:1px solid var(--inchiostro);margin-top:12px}
+.colophon .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px;padding-block:32px 40px;font-family:var(--f-ui);font-size:.84rem;color:var(--inchiostro-2)}
+.colophon h4{font-family:var(--f-display);font-size:1.25rem;color:var(--inchiostro);margin:0 0 6px;font-style:italic;font-weight:600}
+.colophon a{color:var(--inchiostro)}
+.colophon ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+
+<div class="progresso" id="progresso" hidden></div>
+
+<div class="servizio">
+  <div class="wrap">
+    <span class="data" id="oggi"></span>
+    <span class="campanella" id="campanella" title="Orario indicativo: 6 ore da 60 minuti, dalle 8:00, lunedì–venerdì">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21a2 2 0 0 0 4 0"/><path d="M12 3v2"/></svg>
+      <span id="campanella-txt">…</span>
+    </span>
+    <div class="azioni">
+      <button class="btn-ico" id="btn-cerca" aria-expanded="false" aria-controls="ricerca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Cerca</button>
+      <button class="btn-ico" id="btn-testo" title="Dimensione del testo">A<span style="font-size:1.15em">A</span></button>
+      <button class="btn-ico" id="btn-tema" title="Giorno / notte" aria-label="Cambia tema giorno o notte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="ricerca" id="ricerca" hidden>
+  <div class="wrap">
+    <label class="etichetta" for="q">Cerca nel giornale</label>
+    <input id="q" type="search" placeholder="Prova: Vesuvio, maturità, Calvino…" autocomplete="off">
+    <ul id="risultati"></ul>
+  </div>
+</div>
+
+<header class="testata">
+  <div class="wrap">
+    <div>
+      <a href="#" aria-label="Prima pagina"><div class="nome">La Città <b>del Sole</b></div></a>
+      <p class="sottotesta" id="sottotesta"></p>
+    </div>
+    <div class="numero-box" id="numero-box"></div>
+  </div>
+</header>
+
+<nav class="cerchi" aria-label="I sette cerchi">
+  <div class="wrap"><ol id="nav-cerchi"></ol></div>
+</nav>
+
+<main id="vista" class="wrap" tabindex="-1"></main>
+
+<footer class="colophon">
+  <div class="wrap" id="colophon"></div>
+</footer>
+
+<script>
+/* =====================================================================
+   CONTENUTI — la redazione modifica SOLO questa parte.
+   Regola d'oro (Carta della redazione): niente nomi completi, classi,
+   foto o dati di studenti. Si firma con le iniziali.
+   ===================================================================== */
+const GIORNALE = {
+  scuola: "Liceo Scientifico Statale “Cuoco–Campanella”",
+  citta: "Napoli",
+  anno: "I",
+  numero: 1,
+  mese: "Novembre 2026",
+  prossimo: "Dicembre 2026",
+  referente: "la docente referente di Italiano",
+  mostraNomiCompleti: false   // true SOLO con liberatoria firmata da ogni autore
+};
+
+const REDAZIONE = [
+  { sigla: "A.P.", nome: "Alessandro P.", ruolo: "Caporedattore · progetto e sviluppo del sito", cerchi: "Il Mondo, Laboratorio" },
+  { sigla: "G.L.", nome: "Gabriele L.",  ruolo: "Redattore · città e sport", cerchi: "La Città, Palestra" },
+  { sigla: "C.M.", nome: "Camilla M.",   ruolo: "Redattrice · cultura e opinioni", cerchi: "Biblioteca, Agorà" },
+  { sigla: "A.C.", nome: "Antonio C.",   ruolo: "Redattore · scienza e orientamento", cerchi: "Laboratorio, Dopo il Cuoco" }
+];
+
+/* I sette cerchi, dal più esterno (I) al più interno (VII), come i gironi della Città del Sole */
+const CERCHI = [
+  { id: "mondo",     n: "I",   nome: "Il Mondo",      tema: "Attualità",               descr: "Le notizie fuori dal cancello, lette con calma e verificate." },
+  { id: "citta",     n: "II",  nome: "La Città",      tema: "Napoli",                  descr: "Napoli come aula: storia, quartieri, luoghi da attraversare." },
+  { id: "laboratorio", n: "III", nome: "Laboratorio", tema: "Scienza e tecnologia",    descr: "Siamo uno scientifico: qui si misura, si prova, si spiega." },
+  { id: "biblioteca", n: "IV", nome: "Biblioteca",    tema: "Cultura",                 descr: "Libri, film, arte e musica consigliati da chi li ha finiti." },
+  { id: "agora",     n: "V",   nome: "Agorà",         tema: "Opinioni",                descr: "Editoriali, lettere e confronti a due voci." },
+  { id: "palestra",  n: "VI",  nome: "Palestra",      tema: "Sport",                   descr: "Lo sport che si guarda e quello che si fa." },
+  { id: "dopo",      n: "VII", nome: "Dopo il Cuoco", tema: "Orientamento",            descr: "Università, ITS, lavoro: la mappa per dopo la maturità." }
+];
+
+const ARTICOLI = [
+{
+  slug: "perche-la-citta-del-sole", cerchio: "agora", tipo: "Editoriale", firma: "La Redazione", data: "2026-11-05", apertura: true,
+  titolo: "Perché questo giornale si chiama La Città del Sole",
+  sommario: "Un frate in prigione che immagina una città dove le mura insegnano, e un esule che scrive di rivoluzioni e dirige un giornale. I due nomi della nostra scuola ci hanno dato il progetto.",
+  corpo: `
+<p>Ogni mattina entriamo in una scuola che porta due nomi, e quasi nessuno di noi saprebbe dire, a bruciapelo, chi fossero. Abbiamo deciso di cominciare da qui: dai nomi.</p>
+<p>Tommaso Campanella nasce a Stilo, in Calabria, nel 1568. Frate domenicano, filosofo inquieto, nel 1599 viene arrestato con l'accusa di aver organizzato una congiura contro il governo spagnolo. Passerà circa ventisette anni nelle carceri di Napoli. È lì dentro, nel 1602, che scrive <em>La Città del Sole</em>: il racconto di una città ideale, costruita su sette cerchi concentrici, con un tempio dedicato al Sole al centro.</p>
+<span class="a-margine"><b>Le mura che insegnano.</b> Nella città di Campanella le pareti dei sette gironi sono dipinte con tutte le scienze: matematica, astronomia, piante, animali, arti. I ragazzi imparano camminando, prima ancora di aprire un libro.</span>
+<p>Il dettaglio che ci ha conquistati è questo: in quella città il sapere non sta chiuso in una stanza, ma è dipinto sui muri, e chi passa lo vede. Un giornale scolastico, in fondo, prova a fare la stessa cosa. Per questo il nostro è diviso in sette cerchi, dal mondo esterno fino a ciò che ci aspetta dopo la maturità, con il nuovo numero al centro, al posto del Sole.</p>
+<h3>Il giornalista che dà il nome alla scuola</h3>
+<p>Vincenzo Cuoco nasce nel 1770 a Civitacampomarano, in Molise, e partecipa alla Repubblica Napoletana del 1799. Quando la repubblica cade finisce in esilio, e nel 1801 pubblica il <em>Saggio storico sulla rivoluzione napoletana</em>. La sua tesi è ancora attuale: quella rivoluzione fallì perché fu «passiva», pensata da pochi e calata dall'alto, con idee e parole lontane dalla vita della gente.</p>
+<p>Pochi lo ricordano, ma Cuoco fu anche giornalista: a Milano diresse il <em>Giornale italiano</em>. Da lui prendiamo una regola semplice. Un giornale serve solo se parla la lingua di chi lo legge. Scriveremo per gli studenti, non per stupire i professori.</p>
+<blockquote>Le mura di Campanella e la lezione di Cuoco: un sapere che si vede, scritto con parole che tutti capiscono.</blockquote>
+<h3>Le nostre promesse</h3>
+<p>Questo giornale segue una Carta della redazione, che trovate pubblicata per intero. Non pubblicheremo nomi, classi, foto o voti di studenti. Non scriveremo per spaventare. Ogni articolo dichiara le sue fonti, e le illustrazioni che vedete sono maioliche disegnate dal codice del sito: nessun volto, nessun dato. Se troviamo un errore lo correggiamo e lo diciamo.</p>
+<p>Il resto lo farete voi: le proposte di articoli sono aperte a tutte le classi.</p>`,
+  fonti: [
+    ["T. Campanella, La Città del Sole (1602; ed. latina Francoforte 1623)", "https://it.wikisource.org/wiki/La_citt%C3%A0_del_Sole"],
+    ["Treccani, voce “Campanella, Tommaso”", "https://www.treccani.it/enciclopedia/tommaso-campanella/"],
+    ["Treccani, voce “Cuoco, Vincenzo”", "https://www.treccani.it/enciclopedia/vincenzo-cuoco/"]
+  ]
+},
+{
+  slug: "neapolis-2500-anni", cerchio: "citta", firma: "G.L.", data: "2026-11-04",
+  titolo: "Neapolis, la città nuova che ha 2500 anni",
+  sommario: "I Greci la chiamarono “città nuova” e la disegnarono a scacchiera. Quella griglia è ancora sotto i nostri piedi: un itinerario a piedi per leggerla.",
+  corpo: `
+<p>Napoli è forse l'unica città al mondo che si chiama “nuova” da venticinque secoli. Il nome viene dal greco <em>Neápolis</em>: la fondarono, secondo la tradizione intorno al 470 a.C., i coloni greci di Cuma, accanto a un insediamento più antico, Partenope, sorto sull'altura di Pizzofalcone.</p>
+<span class="a-margine"><b>Partenope</b> è il nome della sirena che, secondo il mito, si lasciò morire dopo che Ulisse resistette al suo canto. Il suo corpo sarebbe arrivato a riva proprio qui.</span>
+<p>La città nuova fu progettata a tavolino, con un sistema di strade ortogonali: tre grandi vie parallele, i decumani, tagliate da vie più strette, i cardini. È uno schema che i manuali chiamano “ippodameo”, dal nome dell'architetto Ippodamo di Mileto, e lo studiamo in storia dell'arte senza accorgerci che lo percorriamo ogni giorno.</p>
+<h3>L'itinerario: un'ora, tre strade</h3>
+<ol>
+<li><b>Decumano inferiore.</b> È quella che tutti chiamano Spaccanapoli: guardatela dall'alto della Certosa di San Martino e capirete il nome, perché taglia la città come una riga dritta.</li>
+<li><b>Decumano maggiore.</b> Oggi via dei Tribunali. Sotto la chiesa di San Lorenzo Maggiore si visitano gli scavi dell'antico mercato greco-romano, con botteghe e strade lastricate.</li>
+<li><b>Decumano superiore.</b> Il più stretto e silenzioso, tra via della Sapienza e via Anticaglia, dove restano gli archi del teatro romano inglobati nelle case.</li>
+</ol>
+<p>Dal 1995 il centro storico di Napoli è Patrimonio dell'Umanità UNESCO, proprio perché questa continuità è rara: una pianta antica che non è diventata rovina, ma è rimasta città abitata.</p>
+<blockquote>Non serve un biglietto aereo per fare un viaggio d'istruzione: basta alzare gli occhi in via dei Tribunali.</blockquote>
+<p>Un consiglio pratico: fate il percorso in gruppo, di mattina presto, con una mappa stampata della griglia antica. Provate a riconoscere dove un vicolo segue ancora il tracciato greco e dove invece la città lo ha piegato. È un esercizio di storia, ma anche di geometria.</p>`,
+  fonti: [
+    ["UNESCO, Historic Centre of Naples (scheda n. 726)", "https://whc.unesco.org/en/list/726/"],
+    ["Treccani, voce “Napoli” – storia antica", "https://www.treccani.it/enciclopedia/napoli/"]
+  ]
+},
+{
+  slug: "campi-flegrei-senza-panico", cerchio: "laboratorio", firma: "A.C.", data: "2026-11-03",
+  titolo: "Campi Flegrei: capire il bradisismo senza farsi prendere dal panico",
+  sommario: "Viviamo accanto a uno dei vulcani più studiati del pianeta. Cos'è il bradisismo, chi lo misura e dove informarsi davvero, lontano dalle catene di messaggi.",
+  corpo: `
+<p>Quando la terra trema a Pozzuoli, i telefoni di mezza Napoli si riempiono di messaggi inoltrati, audio di sconosciuti e previsioni che nessuno può fare. Proviamo a fare il contrario: capire cosa succede, con calma, usando le fonti giuste.</p>
+<h3>Cos'è il bradisismo</h3>
+<p>I Campi Flegrei sono una caldera: una grande depressione nata dal collasso del terreno dopo eruzioni molto antiche. In quest'area il suolo si alza e si abbassa lentamente, nel corso di mesi e anni. Questo movimento si chiama bradisismo, dal greco <em>bradýs</em>, “lento”. Il sollevamento è spesso accompagnato da piccoli terremoti, generalmente poco profondi.</p>
+<span class="a-margine"><b>Un esempio da manuale.</b> Le colonne del Macellum di Pozzuoli, il cosiddetto “Tempio di Serapide”, portano i fori lasciati da molluschi marini: segno che in passato sono state sott'acqua e poi sono riemerse.</span>
+<p>Non è un fenomeno nuovo. Il Novecento ha conosciuto due grandi crisi, nel 1970-72 e nel 1982-84, e dal 2005 è in corso una nuova fase di sollevamento, seguita giorno per giorno dai ricercatori.</p>
+<h3>Chi lo misura</h3>
+<p>Il monitoraggio è affidato all'Osservatorio Vesuviano, oggi sezione di Napoli dell'Istituto Nazionale di Geofisica e Vulcanologia (INGV). Fondato nel 1841, è il più antico osservatorio vulcanologico del mondo. Stazioni sismiche, GPS, misure dei gas e del suolo producono bollettini pubblici e periodici che chiunque può leggere.</p>
+<h3>Cosa possiamo fare noi</h3>
+<ul>
+<li>Informarci solo da fonti ufficiali: INGV-Osservatorio Vesuviano, Protezione Civile, Comune.</li>
+<li>Conoscere il piano di emergenza della propria zona e le aree di attesa, senza aspettare un evento.</li>
+<li>Non inoltrare messaggi senza fonte: un audio allarmistico fa più danni di quanto sembri.</li>
+<li>Partecipare con serietà alle prove di evacuazione della scuola.</li>
+</ul>
+<p>Conoscere un fenomeno naturale non lo rende innocuo, ma toglie spazio alla paura costruita sul niente. È anche il motivo per cui studiamo scienze.</p>`,
+  fonti: [
+    ["INGV – Osservatorio Vesuviano: bollettini di sorveglianza", "https://www.ov.ingv.it/"],
+    ["Dipartimento della Protezione Civile – Rischio vulcanico Campi Flegrei", "https://rischi.protezionecivile.gov.it/it/vulcanico/vulcani-italia/campi-flegrei/"]
+  ]
+},
+{
+  slug: "pensare-con-lia", cerchio: "laboratorio", firma: "A.P.", data: "2026-11-02",
+  titolo: "Copiare dall'IA o pensare con l'IA? Sei regole che usiamo in redazione",
+  sommario: "Gli assistenti di intelligenza artificiale sono già nei nostri compiti. Il punto non è vietarli, ma usarli senza consegnare loro il cervello.",
+  corpo: `
+<p>Chi dice di non aver mai chiesto aiuto a un chatbot per un compito, probabilmente non sta dicendo tutta la verità. Gli strumenti di intelligenza artificiale generativa sono ovunque. Il problema non è lo strumento: è quando smettiamo di pensare e cominciamo solo a incollare.</p>
+<p>Chi scrive sviluppa software e lavora ogni giorno con questi sistemi. Proprio per questo sa quanto sono bravi a produrre testi credibili, e quanto facilmente sbagliano con sicurezza. Ecco le regole che la nostra redazione si è data.</p>
+<ol>
+<li><b>Prima pensa, poi chiedi.</b> Scrivi da solo la scaletta. Usa l'IA per metterla alla prova, non per inventarla.</li>
+<li><b>Verifica ogni dato.</b> Date, nomi e citazioni vanno controllati su una fonte primaria. I modelli linguistici possono inventare riferimenti che sembrano veri.</li>
+<li><b>Dichiara l'uso.</b> Se un testo è stato rivisto con l'aiuto di un assistente, si dice. È onestà, non debolezza.</li>
+<li><b>Nessun dato personale.</b> Non incollare mai nomi, voti o situazioni di compagni e professori in un chatbot: quei testi escono dal tuo controllo.</li>
+<li><b>Fatti contraddire.</b> Chiedi all'IA di trovare i punti deboli del tuo ragionamento. È l'uso più utile e il meno praticato.</li>
+<li><b>L'ultima parola è tua.</b> Se non sapresti spiegare a voce quello che hai consegnato, non è un tuo lavoro.</li>
+</ol>
+<span class="a-margine"><b>Prova pratica.</b> Chiedete a un assistente la biografia di un personaggio poco noto della vostra città, poi controllatela su un'enciclopedia. Contate gli errori.</span>
+<blockquote>Un assistente che scrive al posto tuo ti fa risparmiare un'ora. Uno che ti fa domande ti fa risparmiare un anno.</blockquote>
+<p>A scuola si va per imparare a ragionare, non per produrre fogli. L'intelligenza artificiale può essere un ottimo compagno di studio, a patto di ricordare chi deve uscire dall'esame con qualcosa in testa.</p>`,
+  fonti: [
+    ["Commissione europea – Orientamenti etici sull'uso dell'IA nell'istruzione per i docenti (2022)", "https://op.europa.eu/it/publication-detail/-/publication/d81a0d54-5348-11ed-92ed-01aa75ed71a1"],
+    ["Garante per la protezione dei dati personali – La scuola a prova di privacy", "https://www.garanteprivacy.it/scuola"]
+  ]
+},
+{
+  slug: "cinque-libri-che-parlano-di-noi", cerchio: "biblioteca", firma: "C.M.", data: "2026-11-01",
+  titolo: "Cinque libri che parlano di noi (e uno per lo scientifico)",
+  sommario: "Napoli, le isole del golfo, le città che non esistono e la chimica raccontata come un romanzo. Una lista breve, da finire prima della maturità.",
+  corpo: `
+<p>Le liste di libri consigliati spesso sembrano compiti per le vacanze. Questa no: sono cinque titoli scelti perché parlano di luoghi che conosciamo o di domande che ci facciamo, e si leggono in pochi giorni.</p>
+<h3>1. Elsa Morante, <em>L'isola di Arturo</em> (1957)</h3>
+<p>Procida, un ragazzo che cresce quasi da solo e idealizza un padre sempre assente. Ha vinto il Premio Strega ed è uno dei romanzi più belli mai scritti sull'adolescenza. Leggetelo, poi prendete l'aliscafo.</p>
+<h3>2. Anna Maria Ortese, <em>Il mare non bagna Napoli</em> (1953)</h3>
+<p>Racconti e reportage su una Napoli del dopoguerra lontana dalle cartoline. Un libro scomodo, che fece discutere molto. Utile per capire quanto il modo di raccontare una città cambi la città stessa.</p>
+<h3>3. Italo Calvino, <em>Le città invisibili</em> (1972)</h3>
+<p>Marco Polo descrive a Kublai Khan città che forse non esistono. Ogni capitolo dura poche pagine. È il compagno perfetto della Città del Sole di Campanella: due modi di immaginare il luogo in cui vorremmo vivere.</p>
+<span class="a-margine"><b>Collegamento per l'orale.</b> Utopie a confronto: Campanella, Moro, Calvino. Funziona in italiano, filosofia e storia dell'arte.</span>
+<h3>4. Erri De Luca, <em>Montedidio</em> (2001)</h3>
+<p>Un ragazzo di tredici anni nel rione Sanità, un boomerang, un diario scritto su un rotolo di carta. Lingua asciutta, napoletana anche quando è italiana.</p>
+<h3>5. Primo Levi, <em>Il sistema periodico</em> (1975)</h3>
+<p>Ventuno racconti, ognuno intitolato a un elemento chimico. Levi era chimico prima che scrittore, e qui la scienza diventa racconto. Nel 2006 la Royal Institution di Londra lo ha indicato come il miglior libro di scienza mai scritto. Per uno scientifico, è quasi obbligatorio.</p>
+<blockquote>Leggere un libro ambientato nel proprio quartiere è un modo per vederlo, finalmente, da fuori.</blockquote>
+<p>Avete un titolo da aggiungere? La rubrica Biblioteca accetta recensioni di massimo tremila battute, firmate con le iniziali.</p>`,
+  fonti: [
+    ["Premio Strega – Albo d'oro (1957)", "https://premiostrega.it/PS/"],
+    ["The Royal Institution – Best science book ever (2006)", "https://www.rigb.org/"]
+  ]
+},
+{
+  slug: "telefono-in-cartella", cerchio: "agora", tipo: "A due voci", firma: "C.M.", data: "2026-10-31",
+  titolo: "Il telefono in cartella: il divieto ci aiuta o ci tratta da bambini?",
+  sommario: "Dall'anno scolastico 2025/26 lo smartphone non si usa in classe anche alle superiori. Abbiamo chiesto a due studenti di difendere due posizioni opposte.",
+  corpo: `
+<p>Con una circolare del Ministero dell'Istruzione e del Merito, dall'anno scolastico 2025/26 il divieto di usare il cellulare durante l'orario scolastico è stato esteso anche alle scuole secondarie di secondo grado, con le eccezioni previste, per esempio per gli studenti che ne hanno bisogno per motivi di salute o per un percorso personalizzato. Il regolamento di ogni istituto stabilisce i dettagli.</p>
+<p>In redazione non eravamo d'accordo, e invece di scegliere una linea abbiamo fatto parlare entrambe le parti. Le due voci restano anonime, come previsto dalla nostra Carta.</p>
+<div class="pro-contro">
+<div><span class="etichetta">Pro · voce di una studentessa</span><p>Per la prima volta l'intervallo è rumoroso. Si parla, si litiga, si gioca a carte. Prima eravamo venti persone in silenzio a scorrere video. Nessuno mi ha tolto niente: mi hanno restituito tre ore di attenzione al giorno. E il telefono, a casa, è ancora lì.</p></div>
+<div><span class="etichetta">Contro · voce di uno studente</span><p>Abbiamo diciotto anni, votiamo, alcuni guidano. Ci chiedono di essere cittadini digitali consapevoli e poi tolgono lo strumento invece di insegnarci a usarlo. Il problema non è il telefono, è che nessuno ci ha mai spiegato come non farsene dominare.</p></div>
+</div>
+<span class="a-margine"><b>Il formato “a due voci”.</b> Su un tema divisivo diamo lo stesso spazio, parola più parola meno, a due tesi opposte. La conclusione la trae chi legge.</span>
+<p>Su un punto le due voci convergono: la regola funziona solo se è chiara, uguale per tutti e accompagnata da lezioni vere di educazione digitale. Proprio quelle che chiediamo all'istituto di aumentare.</p>
+<blockquote>E voi da che parte state? Il dibattito continua nella prossima Agorà.</blockquote>`,
+  fonti: [
+    ["Ministero dell'Istruzione e del Merito – comunicati e circolari", "https://www.mim.gov.it/"]
+  ]
+},
+{
+  slug: "dopo-la-maturita-mappa", cerchio: "dopo", firma: "A.C.", data: "2026-10-30",
+  titolo: "Dopo la maturità: una mappa, non un labirinto",
+  sommario: "Università, ITS, accademie, lavoro. Le strade possibili a Napoli e le scadenze da segnare adesso, in quinta, prima che arrivi la primavera.",
+  corpo: `
+<p>Novembre della quinta è il momento in cui tutti ti chiedono «e dopo?», e la risposta più onesta è spesso «non lo so». Va benissimo. Ma conviene sapere quali porte esistono, e quando si chiudono.</p>
+<h3>Le università di Napoli</h3>
+<p>La città ha una scelta rara. La Federico II, fondata nel 1224 dall'imperatore Federico II di Svevia, è la più antica università statale del mondo. L'Orientale nasce dal Collegio dei Cinesi del Settecento ed è specializzata in lingue e culture. Ci sono poi la Parthenope, l'Università della Campania Luigi Vanvitelli e il Suor Orsola Benincasa.</p>
+<span class="a-margine"><b>Il TOLC</b> è il test online del consorzio CISIA usato da molti corsi di ingegneria, scienze ed economia. Si può sostenere già in quarta e in quinta, più volte: conviene provarlo presto.</span>
+<h3>Gli altri percorsi</h3>
+<ul>
+<li><b>ITS Academy:</b> corsi biennali post-diploma molto legati alle aziende, in settori come digitale, energia, meccanica e turismo.</li>
+<li><b>AFAM:</b> Conservatorio, Accademia di Belle Arti e istituti di alta formazione artistica e musicale.</li>
+<li><b>Lavoro e servizio civile:</b> un anno di esperienza può chiarire le idee più di dieci open day.</li>
+</ul>
+<h3>Area medica</h3>
+<p>Per Medicina, Odontoiatria e Veterinaria l'accesso è stato riformato: al posto del vecchio test d'ingresso c'è un primo semestre aperto, con esami di fisica, chimica e biologia che determinano la graduatoria. Le regole sono recenti e possono cambiare: controllate sempre il bando dell'anno in corso sul sito del Ministero dell'Università.</p>
+<h3>Da fare entro la primavera</h3>
+<ol>
+<li>Segnare le date degli open day e dei TOLC.</li>
+<li>Parlare con almeno uno studente universitario del corso che vi interessa.</li>
+<li>Controllare borse di studio e scadenze del diritto allo studio regionale.</li>
+</ol>
+<p>Non esiste la scelta perfetta, esiste la scelta informata. E si può sempre cambiare strada.</p>`,
+  fonti: [
+    ["Università di Napoli Federico II – Storia", "https://www.unina.it/ateneo/storia"],
+    ["CISIA – Test TOLC", "https://www.cisiaonline.it/"],
+    ["Ministero dell'Università e della Ricerca – Accesso ai corsi", "https://www.mur.gov.it/"]
+  ]
+},
+{
+  slug: "scudetti-e-citta", cerchio: "palestra", firma: "G.L.", data: "2026-10-29",
+  titolo: "Due scudetti in tre anni, e quello che il tifo dice di noi",
+  sommario: "Dal 2023 al 2025 Napoli ha festeggiato due volte. Ma la squadra più importante del quartiere è quella che gioca al campetto, senza telecamere.",
+  corpo: `
+<p>Nel 2023 il Napoli ha vinto il terzo scudetto della sua storia, il primo dopo trentatré anni. Nel 2025 è arrivato il quarto. Per molti di noi sono stati i primi festeggiamenti veri: murales nuovi, bandiere sui balconi, la città che sembra un'unica famiglia allargata.</p>
+<p>Lo stadio di Fuorigrotta, dal dicembre 2020, porta il nome di Diego Armando Maradona. Non è solo un omaggio a un campione: è il segno di quanto lo sport, a Napoli, sia parte dell'identità della città, nel bene e nel male.</p>
+<span class="a-margine"><b>Numeri.</b> Scudetti del Napoli: 1987, 1990, 2023, 2025.</span>
+<h3>Il tifo come linguaggio</h3>
+<p>Il calcio insegna appartenenza, ma può diventare anche il contrario: insulti, discriminazioni, rivalità che degenerano. Su un giornale scolastico ci piace ricordare che il miglior tifo è quello che si può portare anche in classe: ironia sì, odio no.</p>
+<h3>Lo sport che non va in prima pagina</h3>
+<p>Accanto alla Serie A c'è tutto lo sport che facciamo davvero: pallavolo, basket nei campetti, nuoto, scherma, danza, le partite del sabato pomeriggio. Questa rubrica vuole raccontarlo. Niente nomi di ragazzi o risultati personali, come vuole la nostra Carta: raccontiamo le squadre, i luoghi, le storie.</p>
+<blockquote>Una città che sa festeggiare insieme può anche imparare a giocare insieme.</blockquote>
+<p>Avete un campetto, una palestra o un'associazione sportiva da segnalare? Scriveteci: il prossimo numero sarà dedicato ai luoghi dello sport nei quartieri.</p>`,
+  fonti: [
+    ["Lega Serie A – Albo d'oro", "https://www.legaseriea.it/"],
+    ["Comune di Napoli – Stadio Diego Armando Maradona", "https://www.comune.napoli.it/"]
+  ]
+},
+{
+  slug: "leggere-una-notizia", cerchio: "mondo", firma: "A.P.", data: "2026-10-28",
+  titolo: "Come verificare una notizia in cinque minuti",
+  sommario: "Prima di condividere, fermatevi. Il metodo dei fact-checker professionisti spiegato in cinque passaggi che stanno in una pausa tra due lezioni.",
+  corpo: `
+<p>Il mondo arriva sul nostro telefono a pezzi: un titolo, uno screenshot, un video di quindici secondi. Molti sono veri, alcuni sono vecchi, altri sono inventati. Il problema è che hanno tutti lo stesso aspetto.</p>
+<p>I ricercatori di Stanford che studiano l'educazione digitale hanno notato una cosa curiosa: i fact-checker professionisti non leggono più a fondo degli altri. Leggono di lato. Aprono subito altre schede per capire chi c'è dietro una notizia, prima ancora di leggerla tutta. Si chiama <em>lateral reading</em>.</p>
+<h3>Il metodo in cinque passaggi</h3>
+<ol>
+<li><b>Fermati.</b> Se una notizia ti fa arrabbiare o spaventare subito, è il momento di rallentare.</li>
+<li><b>Chi lo dice?</b> Cerca il nome della fonte in un'altra scheda: è una testata registrata, un ente, un profilo anonimo?</li>
+<li><b>Quando?</b> Controlla la data. Molte bufale sono notizie vere di anni fa, ripubblicate fuori contesto.</li>
+<li><b>Lo dicono altri?</b> Se una notizia importante la riporta un solo sito, c'è qualcosa che non va.</li>
+<li><b>Le immagini.</b> Una ricerca inversa dell'immagine dice spesso dove e quando è stata scattata davvero.</li>
+</ol>
+<span class="a-margine"><b>Esercizio.</b> Prendete l'ultimo messaggio “urgente” arrivato nel gruppo della classe e applicate i cinque passaggi. Quanto tempo ci avete messo?</span>
+<blockquote>Condividere è un gesto da editore: per qualche secondo, il giornale sei tu.</blockquote>
+<p>È lo stesso metodo che usiamo in redazione. Ogni articolo di questo giornale porta in fondo l'elenco delle sue fonti: così potete controllarci.</p>`,
+  fonti: [
+    ["Stanford History Education Group / Digital Inquiry Group – Civic Online Reasoning", "https://cor.inquirygroup.org/"],
+    ["AGCOM – Osservatorio sulla disinformazione online", "https://www.agcom.it/"]
+  ]
+}
+];
+
+/* Il problema del mese — risposta in gradi, tolleranza ±0,8 */
+const PROBLEMA = {
+  titolo: "Quanto è alto il Sole a Natale?",
+  testo: "Napoli si trova a circa 40,85° di latitudine Nord. Al mezzogiorno solare del solstizio d'inverno la declinazione del Sole è −23,44°. Quanti gradi sopra l'orizzonte si trova il Sole in quel momento?",
+  risposta: 25.71, tolleranza: 0.8,
+  aiuto: "Al mezzogiorno solare l'altezza del Sole vale 90° − latitudine + declinazione.",
+  soluzione: "90° − 40,85° + (−23,44°) = 25,71°. Il Sole resta basso, poco più di un quarto di angolo retto: per questo a dicembre le ombre a mezzogiorno sono lunghe circa il doppio degli oggetti che le proiettano."
+};
+
+/* =====================================================================
+   MOTORE DEL SITO — non serve modificarlo.
+   ===================================================================== */
+const $ = (s, el = document) => el.querySelector(s);
+const vista = $("#vista");
+const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
+const cerchioDi = id => CERCHI.find(c => c.id === id);
+const fmtData = iso => { const d = new Date(iso + "T12:00:00"); return `${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`; };
+const minuti = a => Math.max(2, Math.round(a.corpo.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 200));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const firmaDi = a => {
+  if (!GIORNALE.mostraNomiCompleti) return a.firma;
+  const m = REDAZIONE.find(r => r.sigla === a.firma); return m ? m.nome : a.firma;
+};
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+};
+
+/* ---------- maioliche generative ---------- */
+function hash(str) { let h = 2166136261; for (const ch of str) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(seed) { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function tokens() { const cs = getComputedStyle(document.documentElement); const g = n => cs.getPropertyValue(n).trim(); return { fondo: g("--carta-2"), carta: g("--carta"), ink: g("--inchiostro"), sole: g("--sole"), verde: g("--maiolica"), blu: g("--cielo"), filo: g("--filo") }; }
+
+function disegnaTavola(cv) {
+  const r = cv.getBoundingClientRect(); if (!r.width) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+  const ctx = cv.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const T = tokens(), R = rng(hash(cv.dataset.seme || "sole"));
+  const pal = [T.sole, T.verde, T.blu, T.ink];
+  const pick = () => pal[Math.floor(R() * pal.length)];
+  const W = r.width, H = r.height;
+  ctx.fillStyle = T.fondo; ctx.fillRect(0, 0, W, H);
+  const righe = cv.dataset.righe ? +cv.dataset.righe : (H > 300 ? 3 : 2);
+  const lato = H / righe;
+  // parametri del motivo, uguali per tutte le piastrelle (come in una vera maiolica)
+  const c1 = pick(), c2 = pick(), c3 = pick(), c4 = pick();
+  const rAng = .28 + R() * .22, petD = .18 + R() * .1, petRx = .07 + R() * .05, petRy = .03 + R() * .03;
+  const rCen = .06 + R() * .07, punti = 4 + Math.floor(R() * 4), stile = Math.floor(R() * 3);
+  const quarto = (s) => {
+    // angolo: quarto di cerchio
+    ctx.fillStyle = c1; ctx.beginPath(); ctx.moveTo(-s / 2, -s / 2); ctx.arc(-s / 2, -s / 2, s * rAng, 0, Math.PI / 2); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = T.fondo; ctx.beginPath(); ctx.arc(-s / 2, -s / 2, s * rAng * .55, 0, Math.PI * 2); ctx.fill();
+    // petalo a 45°
+    ctx.save(); ctx.rotate(-Math.PI * .75); ctx.translate(s * petD + s * petRx, 0);
+    ctx.fillStyle = c2; ctx.beginPath(); ctx.ellipse(0, 0, s * petRx, s * petRy, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    // puntini lungo l'asse
+    ctx.fillStyle = c4;
+    for (let i = 0; i < punti; i++) { const t = .12 + i * (.3 / punti); ctx.beginPath(); ctx.arc(0, -s * t - s * .05, s * .012, 0, Math.PI * 2); ctx.fill(); }
+    if (stile === 1) { ctx.strokeStyle = c3; ctx.lineWidth = s * .018; ctx.beginPath(); ctx.arc(0, 0, s * .36, -Math.PI * .7, -Math.PI * .3); ctx.stroke(); }
+    if (stile === 2) { ctx.fillStyle = c3; ctx.beginPath(); ctx.moveTo(0, -s / 2); ctx.lineTo(s * .06, -s * .42); ctx.lineTo(0, -s * .34); ctx.lineTo(-s * .06, -s * .42); ctx.closePath(); ctx.fill(); }
+  };
+  for (let y = 0; y < righe; y++) {
+    for (let x = 0; x * lato < W; x++) {
+      ctx.save(); ctx.translate(x * lato + lato / 2, y * lato + lato / 2);
+      ctx.beginPath(); ctx.rect(-lato / 2, -lato / 2, lato, lato); ctx.clip();
+      for (let q = 0; q < 4; q++) { ctx.save(); ctx.rotate(q * Math.PI / 2); quarto(lato); ctx.restore(); }
+      ctx.fillStyle = c3; ctx.beginPath(); ctx.arc(0, 0, lato * rCen, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = T.fondo; ctx.beginPath(); ctx.arc(0, 0, lato * rCen * .4, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = T.carta; ctx.lineWidth = 1.5; ctx.strokeRect(x * lato, y * lato, lato, lato);
+    }
+  }
+}
+const disegnaTutte = () => document.querySelectorAll("canvas.tavola").forEach(disegnaTavola);
+const tavola = (seme, extra = "") => `<canvas class="tavola" data-seme="${esc(seme)}" ${extra} role="img" aria-label="Illustrazione generativa a motivo di maiolica"></canvas>`;
+
+/* ---------- pianta della città (SVG) ---------- */
+function pianta() {
+  const cx = 200, cy = 200, r0 = 186, step = 22;
+  const anelli = CERCHI.map((c, i) => {
+    const r = r0 - i * step, conto = ARTICOLI.filter(a => a.cerchio === c.id).length;
+    const p = `M ${cx} ${cy - r} a ${r} ${r} 0 1 1 0 ${2 * r} a ${r} ${r} 0 1 1 0 ${-2 * r}`;
+    const label = `${c.n} · ${c.nome} · ${conto} ${conto === 1 ? "articolo" : "articoli"}`;
+    return `<g class="cerchio" tabindex="0" role="link" aria-label="Cerchio ${c.n}, ${c.nome}" data-vai="sezione-${c.id}">
+      <path id="p-${c.id}" d="${p}" class="anello ${i % 2 ? "a2" : "a1"}"/>
+      <text dy="3.4"><textPath href="#p-${c.id}" startOffset="${(2 + i * 14) % 100}%">${esc(label)}</textPath></text></g>`;
+  }).join("");
+  const rInt = r0 - CERCHI.length * step + 10;
+  const raggi = Array.from({ length: 16 }, (_, k) => {
+    const a = k * Math.PI / 8, a1 = 36, a2 = k % 2 ? rInt - 10 : rInt - 4;
+    return `<line class="raggio" x1="${cx + Math.cos(a) * a1}" y1="${cy + Math.sin(a) * a1}" x2="${cx + Math.cos(a) * a2}" y2="${cy + Math.sin(a) * a2}"/>`;
+  }).join("");
+  return `<figure>
+    <svg viewBox="0 0 400 400" role="group" aria-label="Pianta della città: i sette cerchi del giornale">
+      ${anelli}${raggi}
+      <circle class="disco" cx="${cx}" cy="${cy}" r="31"/>
+      <text class="disco-sub" x="${cx}" y="${cy - 10}" text-anchor="middle">NUMERO</text>
+      <text class="disco-txt" x="${cx}" y="${cy + 14}" text-anchor="middle">${GIORNALE.numero}</text>
+    </svg>
+    <figcaption>La pianta del giornale: sette cerchi come i gironi della Città del Sole di Campanella. Tocca un anello per entrare.</figcaption>
+  </figure>`;
+}
+
+/* ---------- componenti ---------- */
+const occhiello = a => { const c = cerchioDi(a.cerchio); return `<div class="occhiello etichetta"><span class="num">Cerchio ${c.n}</span><span>${esc(a.tipo || c.nome)}</span></div>`; };
+const firmaRiga = a => `<div class="firma"><span>di <b>${esc(firmaDi(a))}</b></span><span>${fmtData(a.data)}</span><span>${minuti(a)} min di lettura</span></div>`;
+const scheda = a => `<a class="scheda" href="#a-${a.slug}">${tavola(a.slug)}${occhiello(a)}<h3>${esc(a.titolo)}</h3><p class="sommario">${esc(a.sommario)}</p>${firmaRiga(a)}</a>`;
+
+/* ---------- viste ---------- */
+function home() {
+  const lead = ARTICOLI.find(a => a.apertura) || ARTICOLI[0];
+  const fasce = CERCHI.map(c => {
+    const lista = ARTICOLI.filter(a => a.cerchio === c.id && a !== lead);
+    if (!lista.length) return "";
+    return `<section class="fascia${lista.length > 1 ? " larga" : ""}" aria-labelledby="f-${c.id}">
+      <div class="fascia-testa"><span class="romano" aria-hidden="true">${c.n}</span>
+        <div><h2 id="f-${c.id}">${c.nome}</h2><p>${c.tema} · ${c.descr}</p></div>
+        <a class="tutti" href="#sezione-${c.id}">Tutto il cerchio ${c.n} →</a></div>
+      <div class="griglia">${lista.map(scheda).join("")}</div></section>`;
+  }).join("");
+  return `
+  <section class="apertura" aria-label="In primo piano">
+    <article class="lead">
+      <a href="#a-${lead.slug}" tabindex="-1" aria-hidden="true">${tavola(lead.slug, 'data-righe="3"')}</a>
+      ${occhiello(lead)}
+      <h2><a href="#a-${lead.slug}">${esc(lead.titolo)}</a></h2>
+      <p class="sommario">${esc(lead.sommario)}</p>
+      ${firmaRiga(lead)}
+    </article>
+    <div class="pianta">${pianta()}</div>
+  </section>
+  <div class="fasce">${fasce}</div>
+  <section class="moduli" aria-label="Rubriche fisse">
+    ${problemaHTML()}
+    <div class="carta-box">
+      <span class="etichetta" style="color:var(--maiolica)">Carta della redazione</span>
+      <h2>Cosa non troverete mai su questo giornale</h2>
+      <ul>
+        <li>Nomi, cognomi e classi di studenti: firmiamo con le iniziali.</li>
+        <li>Foto o video di studenti senza il consenso scritto delle famiglie.</li>
+        <li>Voti, verifiche, ritardi, note disciplinari, dati sulla salute.</li>
+        <li>Titoli costruiti per spaventare o creare allarme.</li>
+        <li>Notizie senza fonti: le trovate in fondo a ogni articolo.</li>
+      </ul>
+      <a class="btn vuoto" href="#carta" style="justify-self:start;text-decoration:none">Leggi la Carta completa</a>
+    </div>
+  </section>`;
+}
+
+function problemaHTML() {
+  return `<div class="problema">
+    <span class="etichetta">Il problema del mese · Cerchio III</span>
+    <h2>${esc(PROBLEMA.titolo)}</h2>
+    <p>${esc(PROBLEMA.testo)}</p>
+    <form id="form-problema" novalidate>
+      <label for="risposta">Risposta in gradi</label>
+      <input id="risposta" inputmode="decimal" placeholder="es. 30,5">
+      <button class="btn" type="submit">Verifica</button>
+    </form>
+    <p class="esito" id="esito" aria-live="polite"></p>
+    <details><summary>Un aiuto</summary><p>${esc(PROBLEMA.aiuto)}</p></details>
+    <details><summary>La soluzione</summary><p>${esc(PROBLEMA.soluzione)}</p></details>
+  </div>`;
+}
+
+function sezione(id) {
+  const c = cerchioDi(id); if (!c) return nonTrovato();
+  const lista = ARTICOLI.filter(a => a.cerchio === id);
+  return `<section class="fascia" style="border:0">
+    <div class="fascia-testa"><span class="romano" aria-hidden="true">${c.n}</span>
+      <div><h2 style="font-size:clamp(2rem,5vw,3.2rem)">${c.nome}</h2><p>${c.tema} · ${c.descr}</p></div></div>
+    ${lista.length ? `<div class="griglia">${lista.map(scheda).join("")}</div>` :
+      `<p class="ui" style="color:var(--inchiostro-2)">Questo cerchio è ancora da dipingere. Il primo articolo potrebbe essere il tuo: <a href="#redazione">ecco come proporlo</a>.</p>`}
+  </section>`;
+}
+
+function articolo(slug) {
+  const a = ARTICOLI.find(x => x.slug === slug); if (!a) return nonTrovato();
+  const c = cerchioDi(a.cerchio);
+  const stessi = ARTICOLI.filter(x => x !== a && x.cerchio === a.cerchio);
+  const altri = (stessi.length ? stessi : []).concat(ARTICOLI.filter(x => x !== a && x.cerchio !== a.cerchio)).slice(0, 3);
+  return `<article class="articolo">
+    <header class="art-testa">${occhiello(a)}<h1>${esc(a.titolo)}</h1><p class="sommario">${esc(a.sommario)}</p>${firmaRiga(a)}</header>
+    <figure class="art-tavola" style="margin-inline:0">${tavola(a.slug, 'data-righe="2"')}
+      <figcaption>Illustrazione generativa: una maiolica disegnata dal codice a partire dal titolo dell'articolo. Nessuna foto di persone.</figcaption></figure>
+    <div class="art-corpo-wrap">
+      <div>
+        <div class="corpo">${a.corpo}</div>
+        <div class="art-piede">
+          <span class="etichetta">Continua a camminare nella città</span>
+          <div class="altri">${altri.map(scheda).join("")}</div>
+        </div>
+      </div>
+      <aside class="colonna-lat" aria-label="Informazioni sull'articolo">
+        <div class="garanzie"><span class="etichetta">Verificato dalla redazione</span>
+          <ul><li>Nessun dato personale di studenti</li><li>Nessuna foto di minori</li><li>Fonti citate e controllabili</li><li>Tono informativo, non allarmistico</li></ul></div>
+        <div class="fonti"><span class="etichetta">Fonti</span><ol>${a.fonti.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ol></div>
+        <div class="strumenti">
+          <button class="btn vuoto" id="copia-link" type="button">Copia il link</button>
+          <a class="btn vuoto" href="#sezione-${c.id}" style="text-decoration:none">Cerchio ${c.n} · ${c.nome}</a>
+        </div>
+        <p class="ui" id="copia-esito" style="font-size:.8rem;color:var(--inchiostro-2)" aria-live="polite"></p>
+      </aside>
+    </div>
+  </article>`;
+}
+
+function carta() {
+  const regole = [
+    ["Niente dati che identificano", "Non pubblichiamo nome e cognome, classe, ritardi, problemi disciplinari o situazioni personali di studenti. Gli autori firmano con le iniziali; il nome completo compare solo con liberatoria scritta."],
+    ["Foto e video solo con consenso", "Immagini di studenti solo con consenso informato dei genitori (o dell'interessato se maggiorenne). Per scelta, il sito usa illustrazioni generative: maioliche disegnate dal codice, senza volti."],
+    ["Voti e valutazioni restano privati", "Risultati di verifiche, voti e giudizi si comunicano solo attraverso i canali riservati della scuola, mai qui."],
+    ["Nessun dato sensibile", "Diagnosi, salute, informazioni personali particolari non vengono divulgate in alcun modo, neppure in forma indiretta."],
+    ["Niente allarmismo", "Non pubblichiamo contenuti che generano paura ingiustificata sulla scuola o sui minori, né immagini di ragazzi in contesti che suggeriscono pericolo. Sui temi delicati citiamo solo fonti ufficiali."],
+    ["Fonti dichiarate", "Ogni articolo elenca le sue fonti. Se troviamo un errore lo correggiamo e lo segnaliamo in fondo al pezzo."],
+    ["Pubblicazione autorizzata", "Ogni numero è rivisto dalla docente referente e pubblicato sotto la responsabilità del Dirigente scolastico, che ne garantisce il rispetto della normativa sulla privacy."]
+  ];
+  return `<div class="pagina">
+    <span class="etichetta" style="color:var(--maiolica)">Documento della redazione</span>
+    <h1>Carta della redazione</h1>
+    <p class="intro">Le regole che seguiamo per ogni articolo, ricavate dalle indicazioni della nostra docente sulle pubblicazioni online delle scuole. Esistono per proteggere la privacy dei minori, prevenire il cyberbullismo e mantenere un ambiente sereno.</p>
+    <section>${regole.map(([t, d], i) => `<div class="regola"><span class="n">${CERCHI[i].n}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("")}</section>
+    <section><h2>Cosa possiamo pubblicare</h2>
+      <ul><li>Articoli, interviste e approfondimenti senza dati personali identificativi.</li>
+      <li>Racconti di attività, eventi e progetti della scuola, nel rispetto della riservatezza.</li>
+      <li>Materiali didattici e informazioni generali non riconducibili a singoli studenti.</li></ul></section>
+  </div>`;
+}
+
+function redazione() {
+  return `<div class="pagina">
+    <span class="etichetta" style="color:var(--maiolica)">Chi siamo</span>
+    <h1>La redazione</h1>
+    <p class="intro">Quattro studenti di quinta del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Firmiamo con le iniziali, come prevede la nostra Carta.</p>
+    <section><div class="membri">${REDAZIONE.map(m => `<div class="membro"><span class="sigla">${esc(GIORNALE.mostraNomiCompleti ? m.nome : m.sigla)}</span><span class="ruolo">${esc(m.ruolo)}</span><span class="ruolo">Cerchi: ${esc(m.cerchi)}</span></div>`).join("")}</div></section>
+    <section><h2>Come proporre un articolo</h2>
+      <ol class="passi">
+        <li>Scegli il cerchio giusto e scrivi un titolo e due righe di sommario.</li>
+        <li>Scrivi il pezzo: da 2.000 a 5.000 battute, con l'elenco delle fonti in fondo.</li>
+        <li>Rileggi con la Carta della redazione davanti: niente nomi, foto, voti o dati di compagni.</li>
+        <li>Consegnalo alla redazione o a ${esc(GIORNALE.referente)}: lo rivediamo insieme e lo firmi con le iniziali.</li>
+      </ol></section>
+    <section><h2>Ritmo di uscita</h2><p>Un numero al mese durante l'anno scolastico. Numero ${GIORNALE.numero}: ${esc(GIORNALE.mese)}. Prossimo numero: ${esc(GIORNALE.prossimo)}.</p></section>
+  </div>`;
+}
+
+function nonTrovato() {
+  return `<div class="pagina"><h1>Questa strada non porta da nessuna parte</h1><p class="intro">La pagina che cerchi non esiste o è stata spostata. <a href="#">Torna alla prima pagina</a>.</p></div>`;
+}
+
+/* ---------- router (hash semplici: #a-slug, #sezione-id, #carta, #redazione) ---------- */
+function render() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let html, attivo = null, isArt = false;
+  if (!h) html = home();
+  else if (h.startsWith("a-")) { html = articolo(h.slice(2)); isArt = true; const a = ARTICOLI.find(x => x.slug === h.slice(2)); attivo = a && a.cerchio; }
+  else if (h.startsWith("sezione-")) { attivo = h.slice(8); html = sezione(attivo); }
+  else if (h === "carta") html = carta();
+  else if (h === "redazione") html = redazione();
+  else html = nonTrovato();
+  vista.innerHTML = html;
+  document.querySelectorAll("#nav-cerchi a").forEach(a => { if (a.dataset.id === attivo) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  $("#progresso").hidden = !isArt;
+  const art = isArt && ARTICOLI.find(x => x.slug === h.slice(2));
+  document.title = art ? `${art.titolo} · La Città del Sole` : "La Città del Sole";
+  window.scrollTo(0, 0);
+  requestAnimationFrame(disegnaTutte);
+  collega();
+}
+
+function collega() {
+  vista.querySelectorAll("[data-vai]").forEach(g => {
+    const vai = () => { location.hash = g.dataset.vai; };
+    g.addEventListener("click", vai);
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); vai(); } });
+  });
+  const f = $("#form-problema");
+  if (f) f.addEventListener("submit", e => {
+    e.preventDefault();
+    const v = parseFloat($("#risposta").value.replace(",", ".").replace("°", ""));
+    const out = $("#esito");
+    if (isNaN(v)) { out.textContent = "Scrivi un numero, per esempio 30,5."; return; }
+    out.textContent = Math.abs(v - PROBLEMA.risposta) <= PROBLEMA.tolleranza ? "Esatto. Il Sole di dicembre è basso: apri la soluzione per il perché." : "Non ancora. Prova con l'aiuto qui sotto.";
+  });
+  const cp = $("#copia-link");
+  if (cp) cp.addEventListener("click", () => {
+    const url = location.href, out = $("#copia-esito");
+    navigator.clipboard?.writeText(url).then(() => { out.textContent = "Link copiato."; }).catch(() => { out.textContent = url; });
+    if (!navigator.clipboard) out.textContent = url;
+  });
+}
+
+/* ---------- campanella: che ora di lezione è? ---------- */
+function campanella() {
+  const d = new Date(), m = d.getHours() * 60 + d.getMinutes(), g = d.getDay();
+  const el = $("#campanella"), t = $("#campanella-txt"); let txt, suona = false;
+  if (g === 0 || g === 6) txt = "Niente lezioni oggi. Buona lettura.";
+  else if (m < 480) txt = `Prima campanella alle 8:00 (tra ${480 - m} min)`;
+  else if (m >= 840) txt = "Lezioni finite. Buona lettura.";
+  else { const ora = Math.floor((m - 480) / 60) + 1, resto = 60 - ((m - 480) % 60); suona = resto <= 3; txt = `${ora}ª ora · campanella tra ${resto} min`; }
+  t.textContent = txt; el.classList.toggle("suona", suona);
+}
+
+/* ---------- impianto ---------- */
+function impianto() {
+  const d = new Date();
+  $("#oggi").textContent = `${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`;
+  $("#sottotesta").textContent = `Il giornale degli studenti del ${GIORNALE.scuola} · ${GIORNALE.citta}`;
+  $("#numero-box").innerHTML = `<strong>N. ${GIORNALE.numero}</strong><span>Anno ${GIORNALE.anno} · ${GIORNALE.mese}</span>`;
+  $("#nav-cerchi").innerHTML = CERCHI.map(c => `<li><a href="#sezione-${c.id}" data-id="${c.id}"><span>${c.n}</span>${c.nome}</a></li>`).join("");
+  $("#colophon").innerHTML = `
+    <div><h4>La Città del Sole</h4><p>Giornale scolastico online del ${esc(GIORNALE.scuola)}, ${esc(GIORNALE.citta)}. Anno ${GIORNALE.anno}, numero ${GIORNALE.numero}, ${esc(GIORNALE.mese)}.</p></div>
+    <div><h4>I sette cerchi</h4><ul>${CERCHI.map(c => `<li><a href="#sezione-${c.id}">${c.n} · ${c.nome}</a></li>`).join("")}</ul></div>
+    <div><h4>La redazione</h4><ul><li><a href="#redazione">Chi siamo e come scriverci</a></li><li><a href="#carta">Carta della redazione e privacy</a></li></ul>
+      <p style="margin-top:10px">Ogni numero è rivisto dalla docente referente e pubblicato sotto la responsabilità del Dirigente scolastico.</p></div>
+    <div><h4>Le illustrazioni</h4><p>Nessuna foto di studenti: le immagini sono maioliche generate dal codice del sito a partire dal titolo di ogni articolo. Ogni articolo ha la sua, e cambia colore di notte.</p></div>`;
+
+  // tema
+  const tema = store.get("cds-tema"); if (tema) document.documentElement.dataset.theme = tema;
+  $("#btn-tema").addEventListener("click", () => {
+    const scuro = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const nuovo = scuro ? "light" : "dark"; document.documentElement.dataset.theme = nuovo; store.set("cds-tema", nuovo); disegnaTutte();
+  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", disegnaTutte);
+
+  // dimensione testo
+  const taglie = ["", "grande", "enorme"]; let ti = Math.max(0, taglie.indexOf(store.get("cds-taglia") || ""));
+  const applica = () => { if (taglie[ti]) document.documentElement.dataset.size = taglie[ti]; else delete document.documentElement.dataset.size; };
+  applica();
+  $("#btn-testo").addEventListener("click", () => { ti = (ti + 1) % taglie.length; applica(); store.set("cds-taglia", taglie[ti]); requestAnimationFrame(disegnaTutte); });
+
+  // ricerca
+  const pannello = $("#ricerca"), q = $("#q"), ris = $("#risultati"), bc = $("#btn-cerca");
+  bc.addEventListener("click", () => { pannello.hidden = !pannello.hidden; bc.setAttribute("aria-expanded", !pannello.hidden); if (!pannello.hidden) q.focus(); });
+  q.addEventListener("input", () => {
+    const s = q.value.trim().toLowerCase();
+    if (s.length < 2) { ris.innerHTML = ""; return; }
+    const trovati = ARTICOLI.filter(a => (a.titolo + " " + a.sommario + " " + a.corpo.replace(/<[^>]+>/g, " ")).toLowerCase().includes(s));
+    ris.innerHTML = trovati.length ? trovati.map(a => `<li><a href="#a-${a.slug}"><small>${cerchioDi(a.cerchio).nome}</small>${esc(a.titolo)}</a></li>`).join("") : `<li class="ui" style="color:var(--inchiostro-2)">Nessun articolo contiene “${esc(q.value)}”.</li>`;
+  });
+  ris.addEventListener("click", e => { if (e.target.closest("a")) { pannello.hidden = true; bc.setAttribute("aria-expanded", "false"); } });
+
+  // barra di avanzamento della lettura
+  addEventListener("scroll", () => {
+    const p = $("#progresso"); if (p.hidden) return;
+    const h = document.documentElement.scrollHeight - innerHeight; p.style.width = (h > 0 ? scrollY / h * 100 : 0) + "%";
+  }, { passive: true });
+
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(disegnaTutte, 120); });
+  document.fonts?.ready.then(disegnaTutte);
+  addEventListener("hashchange", render);
+  campanella(); setInterval(campanella, 30000);
+  render();
+}
+impianto();
+</script>
