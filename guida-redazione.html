@@ -1,0 +1,233 @@
+<title>Come è fatto La Città del Sole</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: la stessa carta a quadretti del giornale; una colonna di "fogli", uno per domanda che Gabriele si fa. */
+:root{
+  --carta:#FAFAF6; --quadretto:#DCE5EE; --margine:#EB8C8F; --foglio:#FFFFFF; --ombra:rgba(30,35,48,.12);
+  --inchiostro:#1D2230; --matita:#5A6070; --penna:#2246B4; --rossa:#CF3A30;
+  --ev-giallo:#FFE45C; --ev-verde:#A8E592; --ev-azzurro:#97D7FF; --ev-rosa:#FFA9CC; --ev-arancio:#FFBF78; --ev-lilla:#CFBBFF;
+  --su-ev:#1D2230; --lavagna:#24402F; --gesso:#EEF1E7; --legno:#9C6B3C;
+  --f-titoli:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --f-testo:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;
+  --f-penna:"Kalam","Comic Sans MS","Bradley Hand",cursive;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --carta:#1F372B; --quadretto:#2A4637; --margine:#8A5550; --foglio:#26402F; --ombra:rgba(0,0,0,.32);
+  --inchiostro:#EEF1E7; --matita:#B7C4B9; --penna:#A8CAF6; --rossa:#F5A49B;
+  --ev-giallo:#F3DA55; --ev-verde:#9FDB8A; --ev-azzurro:#8DCDF4; --ev-rosa:#F5A0C2; --ev-arancio:#F4B774; --ev-lilla:#C5B2F5;
+  --lavagna:#172A20; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --carta:#1F372B; --quadretto:#2A4637; --margine:#8A5550; --foglio:#26402F; --ombra:rgba(0,0,0,.32);
+  --inchiostro:#EEF1E7; --matita:#B7C4B9; --penna:#A8CAF6; --rossa:#F5A49B;
+  --ev-giallo:#F3DA55; --ev-verde:#9FDB8A; --ev-azzurro:#8DCDF4; --ev-rosa:#F5A0C2; --ev-arancio:#F4B774; --ev-lilla:#C5B2F5;
+  --lavagna:#172A20; color-scheme:dark }
+*{box-sizing:border-box}
+body{background-color:var(--carta);color:var(--inchiostro);font-family:var(--f-testo);font-size:1.05rem;line-height:1.6;
+  background-image:linear-gradient(var(--quadretto) 1px,transparent 1px),linear-gradient(90deg,var(--quadretto) 1px,transparent 1px);background-size:20px 20px}
+a{color:var(--penna)}
+:focus-visible{outline:3px solid var(--penna);outline-offset:3px}
+h1,h2,h3{font-family:var(--f-titoli);text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:920px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:36px 60px;display:grid;gap:34px}
+.penna{font-family:var(--f-penna);color:var(--penna)}
+.ev{background:linear-gradient(100deg,transparent 0 2%,var(--ev,var(--ev-giallo)) 2% 97%,transparent 97%) 0 70%/100% 62% no-repeat;color:var(--su-ev);padding:0 .15em}
+.foglio{position:relative;background:var(--foglio);box-shadow:0 1px 0 var(--ombra),0 6px 18px -8px var(--ombra);border-radius:3px;padding:28px 30px 30px 72px;display:grid;gap:14px;min-width:0}
+.foglio::after{content:"";position:absolute;top:0;bottom:0;left:44px;width:2px;background:var(--margine);opacity:.8}
+@media (max-width:600px){.foglio{padding:22px 16px 24px 30px}.foglio::after{left:14px}}
+.domanda{font-family:var(--f-penna);color:var(--rossa);font-size:1.2rem;line-height:1.2}
+.foglio h2{font-weight:800;font-stretch:85%;font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.08}
+.foglio h3{font-weight:800;font-size:1.08rem}
+.testa{display:grid;gap:10px}
+.testa h1{font-weight:800;font-stretch:82%;font-size:clamp(2.3rem,6.4vw,4rem);line-height:1;letter-spacing:-.015em}
+.testa h1 span{color:var(--rossa)}
+.testa p{font-size:1.18rem;color:var(--matita);max-width:58ch}
+.testa .per{font-family:var(--f-penna);color:var(--penna);font-size:1.3rem}
+
+/* orario */
+.orario{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.orario{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.slot{border:1.5px solid var(--quadretto);border-top:6px solid var(--ev);border-radius:3px;padding:10px 12px 12px;display:grid;gap:4px;align-content:start;background:var(--foglio);min-width:0}
+.slot small{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--matita)}
+.slot b{font-family:var(--f-titoli);font-size:1.05rem}
+.slot span{font-size:.85rem;color:var(--matita);line-height:1.4}
+.slot .chi{font-family:var(--f-penna);color:var(--penna);font-size:.98rem}
+.slot.lav{background:var(--lavagna);color:var(--gesso);border-color:var(--legno);border-top-color:var(--legno)}
+.slot.lav small,.slot.lav span,.slot.lav .chi{color:var(--gesso)}
+
+/* pagine */
+.pagine{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.pag{border:1.5px solid var(--quadretto);border-radius:3px;padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
+.pag .ind{font-family:var(--f-penna);color:var(--rossa);font-size:1rem}
+.pag ul{margin:0;padding-left:1.1em;font-size:.92rem;display:grid;gap:3px}
+
+/* anatomia */
+.anatomia{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:760px){.anatomia{grid-template-columns:1fr}}
+.mini{border:1.5px solid var(--quadretto);border-radius:3px;padding:16px;display:grid;gap:9px;font-size:.92rem}
+.mini .k{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.mini .t{font-family:var(--f-titoli);font-weight:800;font-size:1.3rem;line-height:1.1}
+.mini .s{color:var(--matita)}
+.mini .f{font-size:.78rem;color:var(--matita)}
+.mini .fig{height:64px;border-radius:2px;background-image:linear-gradient(var(--quadretto) 1px,transparent 1px),linear-gradient(90deg,var(--quadretto) 1px,transparent 1px);background-size:12px 12px;display:grid;place-items:center;font-family:var(--f-penna);color:var(--matita);font-size:.9rem}
+.mini .nb{font-family:var(--f-penna);color:var(--penna)}
+.mini .nb b{color:var(--rossa)}
+.mini .cit{font-family:var(--f-penna);color:var(--penna);border-left:3px solid var(--penna);padding-left:10px}
+.mini .h{font-weight:800}
+.num{display:inline-grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;background:var(--rossa);color:var(--foglio);font-size:.72rem;font-weight:700;margin-right:6px;vertical-align:.1em;font-family:var(--f-testo)}
+.legenda{margin:0;padding:0;list-style:none;display:grid;gap:9px;font-size:.95rem}
+.legenda li{display:grid;grid-template-columns:auto 1fr;gap:4px}
+
+/* chi fa cosa */
+.flusso{margin:0;padding:0;list-style:none;display:grid;gap:0}
+.flusso li{display:grid;grid-template-columns:11rem 1fr;gap:14px;padding-block:10px;border-top:1.5px dashed var(--quadretto)}
+@media (max-width:560px){.flusso li{grid-template-columns:1fr;gap:2px}}
+.flusso .chi{font-family:var(--f-penna);font-size:1.1rem;color:var(--penna);line-height:1.3}
+.flusso .chi.dev{color:var(--rossa)}
+.flusso b{display:block}
+
+/* modulo di consegna */
+.modulo{background:var(--carta);border:1.5px solid var(--quadretto);border-radius:3px;padding:14px 16px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.86rem;line-height:1.55;white-space:pre-wrap;overflow-x:auto;margin:0}
+.btn{justify-self:start;font-family:var(--f-testo);font-weight:700;font-size:.9rem;padding:9px 15px;border-radius:4px;background:var(--ev-giallo);color:var(--su-ev);border:0;cursor:pointer}
+.esito{font-size:.85rem;color:var(--matita);min-height:1.3em}
+
+.regole{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.lav-box{background:var(--lavagna);color:var(--gesso);border:12px solid var(--legno);border-radius:6px;padding:24px clamp(18px,3vw,30px);display:grid;gap:10px}
+.lav-box h2{font-family:var(--f-penna);font-weight:700;font-size:1.9rem;line-height:1.05}
+.lav-box ul{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.lav-box a{color:var(--gesso)}
+</style>
+
+<main class="wrap">
+  <header class="testa">
+    <span class="per">per Gabriele (e chiunque entri in redazione)</span>
+    <h1>Come è fatto <span>La Città del Sole</span></h1>
+    <p>Il giornale sembra articolato, ma segue un'idea sola: è un quaderno di scuola, e ogni numero è una mattina di lezione. Qui trovi le parti una per volta.</p>
+  </header>
+
+  <section class="foglio" aria-labelledby="s1">
+    <span class="domanda">1. Come sono divise le rubriche?</span>
+    <h2 id="s1">Come l'orario: sei ore, la ricreazione, l'uscita</h2>
+    <p>Ogni rubrica è un'ora della mattina e ha il suo colore di evidenziatore. L'ordine va da fuori a dentro: si parte dal mondo, si passa per la città e la scuola, si esce con il futuro.</p>
+    <div class="orario">
+      <div class="slot" style="--ev:var(--ev-giallo)"><small>1ª ora</small><b>Il Mondo</b><span>Attualità, verificata</span><span class="chi">Gabriele Liquori · 1 articolo</span></div>
+      <div class="slot" style="--ev:var(--ev-verde)"><small>2ª ora</small><b>La Città</b><span>Napoli, storia, quartieri</span><span class="chi">Gabriele Liquori · 1 articolo</span></div>
+      <div class="slot" style="--ev:var(--ev-azzurro)"><small>3ª ora</small><b>Laboratorio</b><span>Scienze e tecnologia</span><span class="chi">Gabriele e Camilla · 2 articoli</span></div>
+      <div class="slot lav"><small>Intervallo</small><b>Ricreazione</b><span>Problema del mese e curiosità</span><span class="chi">tutta la redazione</span></div>
+      <div class="slot" style="--ev:var(--ev-rosa)"><small>4ª ora</small><b>Biblioteca</b><span>Libri, film, arte</span><span class="chi">Camilla Moccia · 1 articolo</span></div>
+      <div class="slot" style="--ev:var(--ev-lilla)"><small>5ª ora</small><b>Agorà</b><span>Editoriale e opinioni</span><span class="chi">Redazione + Camilla Moccia · 2 articoli</span></div>
+      <div class="slot" style="--ev:var(--ev-arancio)"><small>6ª ora</small><b>Palestra</b><span>Sport</span><span class="chi">Gabriele Liquori · 1 articolo</span></div>
+      <div class="slot" style="--ev:var(--ev-verde)"><small>Uscita</small><b>Dopo il Cuoco</b><span>Orientamento e futuro</span><span class="chi">Camilla Moccia · 1 articolo</span></div>
+    </div>
+    <p>Totale del numero 1: 9 articoli (4 di Gabriele Liquori, 4 di Camilla Moccia, l'editoriale firmato dalla Redazione) più il problema della ricreazione.</p>
+  </section>
+
+  <section class="foglio" aria-labelledby="s2">
+    <span class="domanda">2. Quali pagine ha il sito?</span>
+    <h2 id="s2">Sei tipi di pagina, sempre gli stessi</h2>
+    <div class="pagine">
+      <div class="pag"><span class="ind">la prima che si vede</span><h3>Prima pagina</h3><ul><li>Etichetta del quaderno con nome, scuola e numero</li><li>Articolo di apertura sul foglio protocollo</li><li>Indice con le pagine</li><li>Le ore con le loro schede</li><li>Lavagna della ricreazione e circolare</li></ul></div>
+      <div class="pag"><span class="ind">quando clicchi un'ora</span><h3>Pagina di rubrica</h3><ul><li>Tutti gli articoli di quell'ora</li><li>Se è vuota, invita a proporre un pezzo</li></ul></div>
+      <div class="pag"><span class="ind">la più importante</span><h3>Pagina articolo</h3><ul><li>Testo su foglio a righe</li><li>Timbro VISTO e post-it con le fonti</li><li>"Leggi anche" con altri tre pezzi</li></ul></div>
+      <div class="pag"><span class="ind">l'intervallo</span><h3>Ricreazione</h3><ul><li>Problema con risposta da correggere</li><li>Aiutino e soluzione</li><li>Curiosità "Lo sapevi?"</li></ul></div>
+      <div class="pag"><span class="ind">le regole</span><h3>Circolare n. 1</h3><ul><li>Le regole della prof sulla privacy, in 7 punti</li><li>Cosa si può pubblicare</li></ul></div>
+      <div class="pag"><span class="ind">chi siamo</span><h3>Redazione</h3><ul><li>Noi quattro, con nome, cognome e ruolo</li><li>Come proporre un articolo</li></ul></div>
+    </div>
+    <p>In alto ci sono sempre la data, la campanella (che ora di lezione è adesso), la ricerca, l'ingrandimento del testo e il pulsante Lavagna per la versione scura.</p>
+  </section>
+
+  <section class="foglio" aria-labelledby="s3">
+    <span class="domanda">3. Com'è fatto un articolo?</span>
+    <h2 id="s3">Sette pezzi fissi, più quattro strumenti per il testo</h2>
+    <div class="anatomia">
+      <div class="mini" aria-hidden="true">
+        <span class="k"><span class="num">1</span><span class="ev" style="--ev:var(--ev-azzurro)">3ª ora · Laboratorio</span></span>
+        <span class="t"><span class="num">2</span>Campi Flegrei: capire il bradisismo</span>
+        <span class="s"><span class="num">3</span>Cos'è, chi lo misura e dove informarsi davvero.</span>
+        <span class="f"><span class="num">4</span>di Gabriele Liquori · 3 novembre 2026 · 2 min</span>
+        <div class="fig"><span><span class="num">5</span>disegno di geometria automatico</span></div>
+        <span><span class="num">6</span>Quando la terra trema a Pozzuoli, i telefoni…</span>
+        <span class="h">Cos'è il bradisismo</span>
+        <span class="nb"><b>NB →</b> le colonne del Macellum di Pozzuoli…</span>
+        <span class="cit">Una frase da ricordare, scritta a penna.</span>
+        <span class="f"><span class="num">7</span>Fonti: INGV, Protezione Civile</span>
+      </div>
+      <ol class="legenda">
+        <li><span class="num">1</span><span><b>Rubrica</b>: in quale ora va il pezzo.</span></li>
+        <li><span class="num">2</span><span><b>Titolo</b>: chiaro, al massimo 12 parole circa.</span></li>
+        <li><span class="num">3</span><span><b>Sommario</b>: due righe che dicono di cosa parla.</span></li>
+        <li><span class="num">4</span><span><b>Firma e data</b>: nome e cognome (con liberatoria firmata). Il tempo di lettura lo calcola il sito.</span></li>
+        <li><span class="num">5</span><span><b>Illustrazione</b>: la disegna il sito dal titolo. Niente foto da cercare.</span></li>
+        <li><span class="num">6</span><span><b>Testo</b>: paragrafi, con questi quattro strumenti: <b>sottotitoli</b>, <b>NB</b> (nota a margine a penna), <b>citazione</b> (frase da ricordare), <b>pro e contro</b> (due voci affiancate, per i temi divisivi).</span></li>
+        <li><span class="num">7</span><span><b>Fonti</b>: titolo e link di ogni fonte usata. Senza fonti il pezzo non esce.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="foglio" aria-labelledby="s4">
+    <span class="domanda">4. Chi fa cosa?</span>
+    <h2 id="s4">Voi scrivete, noi montiamo e pubblichiamo</h2>
+    <ol class="flusso">
+      <li><span class="chi">Gabriele Liquori · Camilla Moccia</span><span><b>Scegliete il tema e l'ora</b>Un'idea per rubrica, controllando che non spaventi e non riguardi singoli studenti.</span></li>
+      <li><span class="chi">Gabriele Liquori · Camilla Moccia</span><span><b>Scrivete il pezzo</b>Da 2.000 a 5.000 battute, su Google Docs o Word, usando il modulo qui sotto.</span></li>
+      <li><span class="chi">Gabriele Liquori · Camilla Moccia</span><span><b>Controllate fonti e circolare</b>Ogni dato ha una fonte, nessun nome, foto o voto di compagni.</span></li>
+      <li><span class="chi">la prof</span><span><b>Revisione</b>La docente referente legge e approva.</span></li>
+      <li><span class="chi dev">Alessandro Pappalardo · Antonio Cardillo</span><span><b>Inserimento nel sito</b>Copiamo il pezzo nel file del giornale. Voi non toccate il codice.</span></li>
+      <li><span class="chi dev">Alessandro Pappalardo · Antonio Cardillo</span><span><b>Pubblicazione</b>Un comando e il numero è online su GitHub Pages in un minuto.</span></li>
+    </ol>
+  </section>
+
+  <section class="foglio" aria-labelledby="s5">
+    <span class="domanda">5. Come vi consegno un articolo?</span>
+    <h2 id="s5">Il modulo da copiare</h2>
+    <p>Copiatelo in un documento, riempitelo e mandatelo a noi due. I simboli a inizio riga ci dicono dove vanno sottotitoli, note e citazioni.</p>
+    <pre class="modulo" id="modulo">RUBRICA: (1ª ora Il Mondo / 2ª La Città / 3ª Laboratorio / 4ª Biblioteca / 5ª Agorà / 6ª Palestra / Uscita Dopo il Cuoco)
+TIPO (facoltativo): (Editoriale / A due voci / Intervista / Recensione)
+TITOLO:
+SOMMARIO (2 righe):
+FIRMA (nome e cognome, con liberatoria):
+
+TESTO:
+Primo paragrafo…
+
+## Sottotitolo
+Paragrafo…
+
+NB: nota a margine, una curiosità o un collegamento per l'orale.
+
+&gt; Una frase da ricordare, che diventerà la citazione a penna.
+
+PRO: … (solo per "A due voci")
+CONTRO: …
+
+FONTI:
+1. Nome della fonte – link
+2. Nome della fonte – link</pre>
+    <button class="btn" id="copia" type="button">Copia il modulo</button>
+    <p class="esito" id="esito" aria-live="polite"></p>
+  </section>
+
+  <section class="lav-box" aria-labelledby="s6">
+    <h2 id="s6">Prima di consegnare, controlla</h2>
+    <ul>
+      <li>Nessun nome, cognome o classe di altri studenti: compaiono solo i nostri, con il consenso.</li>
+      <li>Nessuna foto di persone, nessun voto, nessun dato sulla salute.</li>
+      <li>Niente titoli che spaventano: sui temi delicati solo fonti ufficiali.</li>
+      <li>Almeno una fonte per ogni dato o data che citi.</li>
+      <li>Il testo è tuo: se hai usato l'IA per rivederlo, dillo.</li>
+    </ul>
+    <p>Il giornale: <a href="https://alex-sendapp.github.io/la-citta-del-sole/" target="_blank" rel="noopener">alex-sendapp.github.io/la-citta-del-sole</a> · prossimo numero: dicembre 2026.</p>
+  </section>
+</main>
+
+<script>
+document.getElementById("copia").addEventListener("click", () => {
+  const testo = document.getElementById("modulo").textContent, out = document.getElementById("esito");
+  const seleziona = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById("modulo")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); out.textContent = "Testo selezionato: premi Cmd+C (o Ctrl+C) per copiarlo."; };
+  if (!navigator.clipboard) { seleziona(); return; }
+  navigator.clipboard.writeText(testo).then(() => { out.textContent = "Modulo copiato. Incollalo nel tuo documento."; }).catch(seleziona);
+});
+</script>
